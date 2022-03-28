@@ -138,7 +138,7 @@ import axios from 'axios'
 export default {
   data(){
     return {
-      searchWord: '英文解釈教室',
+      searchWord: '',
       serachResults:[],
       image_src_noImage: require('@/static/NoImage.png'),
       valid: false,
