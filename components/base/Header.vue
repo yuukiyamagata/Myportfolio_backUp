@@ -6,7 +6,8 @@
     </header>
     <v-spacer></v-spacer>
       <v-btn
-      outlined color="teal"
+      outlined
+      color="teal"
       class="mr-4"
       @click="$router.push('/auth/login')">
         ログイン
