@@ -1,0 +1,10 @@
+   //   const params = {
+    //     format: "json",
+    //     title: `${encodeString}`,
+    //     booksGenreId: "001",
+    //     applicationId: `${appId}`,
+    //     page: 1,
+    //     outOfStockFlag: 1,
+    //     // 0: 品切れや販売終了も表示しない 1: 表示させる
+    //     formatVersion: 1
+    // };
