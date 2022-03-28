@@ -7,15 +7,22 @@
       <v-form ref="form" v-model="valid">
         <v-row>
           <v-col class="form-width" cols="12" sm="12">
-            <v-text-field
-              v-model="searchWord"
-              label="参考書の検索"
-              placeholder="検索ワードを入力してください"
-              dense
-              append-icon="mdi-magnify"
-              @keydown.enter="search"
-            >
-            </v-text-field>
+          <v-row>
+            <v-col cols="10">
+              <v-text-field
+                v-model="searchWord"
+                label="参考書の検索"
+                placeholder="検索ワードを入力してください"
+                dense
+                append-icon="mdi-magnify"
+              >
+              </v-text-field>
+            </v-col>
+            <v-spacer></v-spacer>
+            <v-col cols="2">
+              <v-btn @click="search" color="teal" outlined>検索</v-btn>
+            </v-col>
+          </v-row>
             <v-text-field
               v-model="sankousho.title"
               label="参考書タイトル"
@@ -46,10 +53,7 @@
             <div class="iamge-wrapper mb-6">
               <v-img
                 :src="image_src_noImage"
-                width="270"
-                height="300"
-                style="border: 1px solid black;"
-                class="mx-auto"
+                class="mx-auto displayImage"
               >
               </v-img>
             </div>
@@ -89,8 +93,8 @@
           <v-container>
           <v-row justify="center" align="center">
             <v-col
-              v-for="n in 9"
-              :key="n"
+              v-for="result in serachResults"
+              :key="result.id"
               cols="12">
                   <v-card
                     class="mx-auto"
@@ -99,18 +103,20 @@
                     >
                   <div class="bg-color">
                       <v-img
-                        :src="serachResults.imageUrl"
+                        :src="result.imageUrl"
                         class="img-fit"
                         />
                   </div>
                   <v-card-title>
-                      Top western road trips
+                    <span>{{ result.id }}</span>
+                      {{ result.title }}
                     </v-card-title>
 
                     <v-card-actions>
                       <v-btn
                         color="orange lighten-2"
                         text
+                        @click="selectBook(result)"
                       >
                         選択
                       </v-btn>
@@ -151,14 +157,16 @@ export default {
   data(){
     return {
       searchWord: '英文解釈教室',
-      // serachResults:[],
-      image_src_noImage: require('@/static/noImage.png'),
+      serachResults:[],
+      image_src_noImage: require('@/static/NoImage.png'),
       valid: false,
       sankousho:{
         title: '',
         category: '',
         reason: '',
         author: '',
+        imageUrl: '',
+        itemUrl: '',
       },
     // バリデーションルール
       titleRules: [
@@ -185,14 +193,6 @@ export default {
         '社会・政治経済,倫理',
       ],
         dialog: false,
-        notifications: false,
-        sound: true,
-        widgets: false,
-        serachResults:{
-          books: [],
-          keyword: '',
-          imageUrl:'',
-        }
     }
   },
   created(){
@@ -210,41 +210,85 @@ export default {
         + "&page=1"
         + "&outOfStockFlag=1"
         + "&formatVersion=1"
-        const response = await axios.get(requestURL).then(response => console.log(response.data))
-        console.log(response)
+        try{
+          const response = await axios.get(requestURL).then(response => response.data);
+            this.dialog = true;
+            let id = 0;
+            response.Items.forEach(book => {
+              const title = book.Item.title
+              const author = book.Item.author
+              const publisherName = book.Item.publisherName
+              const imageUrl = book.Item.largeImageUrl
+              const itemUrl = book.Item.itemUrl
+
+              this.serachResults.push({
+                id,
+                title,
+                author: author ? author: publisherName, // eslint-disable-line
+                imageUrl,
+                itemUrl,
+              })
+              id++
+            })
+
+          if(response === undefined){
+            throw new "データの取得に失敗しました"
+          }
+          }catch( error ){
+            alert(error);
+          }
+
+
+        this.serachResults.forEach(item => console.log(item))
       // 必要な情報を配列に追加
     //     console.log(data.Items[0].Item.smallImageUrl)
     // this.imageUrl = data.Items[0].Item.largeImageUrl
+    },
+    selectBook( item ){
+      this.sankousho.title = item.title
+      this.sankousho.author = item.author
+      this.sankousho.imageUrl = item.imageUrl ? item.imageUrl : this.image_src_noImage // eslint-disable-line
+      this.image_src_noImage = this.sankousho.imageUrl
+      this.sankousho.itemUrl = item.itemUrl
+
+      this.dialog = false
+      this.serachResults = [];
     }
   }
 };
 </script>
 
 <style>
-  
-
   .max-width {
     width: 70%;
   }
+
   .form-width {
     width:80%;
     margin: 0 auto;
   }
+
   .iamge-wrapper{
-    background-color: grey;
     padding-top: 8px;
   }
-  .btn-wrapper{
-  }
+
   .bg-color{
     background-color: #ECEFF1;
   }
+
   .img-fit {
-  object-fit: cover;
-  height: 200px;
-  width: 140px;
-  background-color: teal;
+    object-fit: cover;
+    height: 200px;
+    width: 140px;
+    background-color: teal;
   }
+
+.displayImage{
+  object-fit: cover;
+  width: 200px;
+  height: 270px;
+  border: 1px solid black;
+}
 </style>
 
 
