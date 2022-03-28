@@ -146,12 +146,11 @@
 
 
 <script>
-// import axios from 'axios'
-const  appId = "1089430002983138325"
+import axios from 'axios'
 export default {
   data(){
     return {
-      searchWord: '',
+      searchWord: '英文解釈教室',
       // serachResults:[],
       image_src_noImage: require('@/static/noImage.png'),
       valid: false,
@@ -197,30 +196,25 @@ export default {
     }
   },
   created(){
-    
-
   },
   methods:{
-    search(){
-      alert('search')
+    async search(){
+      const baseUrl ='https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?';
+      const appId = "1089430002983138325"
       const encodeString = encodeURI(this.searchWord);
-      const basaUrl ='https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?';
-      const params = {
-        format: "json",
-        title: encodeString,
-        booksGenreId: "001",
-        applicationId: appId,
-        hits: 30,
-        page: 1,
-        outOfStockFlag: 1, // 0: 品切れや販売終了も表示しない 1: 表示させる
-        formatVersion: 1
-    };
-        const queryParams = new URLSearchParams(params);
-        console.log(basaUrl + queryParams)
-      // クエリーストリング取得
-      // axios
+      const requestURL = baseUrl
+        + "&format=json"
+        + "&title=" + encodeString
+        + "&booksGenreId=001"
+        + "&applicationId=" + appId
+        + "&page=1"
+        + "&outOfStockFlag=1"
+        + "&formatVersion=1"
+        const response = await axios.get(requestURL).then(response => console.log(response.data))
+        console.log(response)
       // 必要な情報を配列に追加
-      alert('search')
+    //     console.log(data.Items[0].Item.smallImageUrl)
+    // this.imageUrl = data.Items[0].Item.largeImageUrl
     }
   }
 };
