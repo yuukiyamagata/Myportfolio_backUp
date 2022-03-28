@@ -50,14 +50,14 @@
               :rules="sankousyoCategoryRules"
             >
             </v-select>
-            <div class="iamge-wrapper mb-6">
+            <div class="mb-6 pt-4">
               <v-img
                 :src="image_src_noImage"
                 class="mx-auto displayImage"
               >
               </v-img>
             </div>
-            <div class="btn-wrapper">
+            <div class="btn-wrapper pt-8">
               <v-row class="d-flex flex-row-reverse">
                 <v-btn color="indigo" outlined class="ml-4">投稿</v-btn>
                 <v-btn outlined sm>プレビュー</v-btn>
@@ -74,16 +74,6 @@
       transition="dialog-top-transition"
       width="600px"
       >
-      <template #activator="{ on, attrs }">
-        <v-btn
-          color="primary"
-          dark
-          v-bind="attrs"
-          v-on="on"
-        >
-          Open Dialog
-        </v-btn>
-      </template>
 
     <v-card>
         <v-card-title>お勧めする参考書を選択してください</v-card-title>
@@ -108,8 +98,8 @@
                         />
                   </div>
                   <v-card-title>
-                    <span>{{ result.id }}</span>
                       {{ result.title }}
+                      <div class="text-subtitle-1">著者:{{ result.author }}</div>
                     </v-card-title>
 
                     <v-card-actions>
@@ -131,21 +121,13 @@
               <v-btn
                 color="blue darken-1"
                 text
-                @click="dialog = false"
+                @click="closeDialoag"
                 >
                 Close
-              </v-btn>
-              <v-btn
-                color="blue darken-1"
-                text
-                @click="dialog = false"
-                >
-                Save
               </v-btn>
           </v-card-actions>
         </v-card>
     </v-dialog>
-    <a href="https://developers.rakuten.com/" target="_blank">Supported by Rakuten Developers</a>
   </v-row>
 </template>
 
@@ -240,9 +222,6 @@ export default {
 
 
         this.serachResults.forEach(item => console.log(item))
-      // 必要な情報を配列に追加
-    //     console.log(data.Items[0].Item.smallImageUrl)
-    // this.imageUrl = data.Items[0].Item.largeImageUrl
     },
     selectBook( item ){
       this.sankousho.title = item.title
@@ -253,6 +232,10 @@ export default {
 
       this.dialog = false
       this.serachResults = [];
+    },
+    closeDialoag(){
+      this.dialog = false
+      this.serachResults = []
     }
   }
 };
@@ -266,10 +249,6 @@ export default {
   .form-width {
     width:80%;
     margin: 0 auto;
-  }
-
-  .iamge-wrapper{
-    padding-top: 8px;
   }
 
   .bg-color{
