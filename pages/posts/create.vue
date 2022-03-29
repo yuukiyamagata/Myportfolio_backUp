@@ -20,7 +20,7 @@
             </v-col>
             <v-spacer></v-spacer>
             <v-col cols="2">
-              <v-btn @click="search" color="teal" outlined>検索</v-btn>
+              <v-btn color="teal" outlined @click="search">検索</v-btn>
             </v-col>
           </v-row>
             <v-text-field
@@ -59,7 +59,7 @@
             </div>
             <div class="btn-wrapper pt-8">
               <v-row class="d-flex flex-row-reverse">
-                <v-btn color="indigo" outlined class="ml-4">投稿</v-btn>
+                <v-btn color="indigo" outlined class="ml-4"  @click="saveBookData" >投稿</v-btn>
                 <v-btn outlined sm>プレビュー</v-btn>
               </v-row>
             </div>
@@ -74,6 +74,8 @@
       transition="dialog-top-transition"
       width="600px"
       >
+
+
 
     <v-card>
         <v-card-title>お勧めする参考書を選択してください</v-card-title>
@@ -135,6 +137,8 @@
 
 <script>
 import axios from 'axios'
+import { collection, setDoc, doc } from 'firebase/firestore'
+import { db } from '@/plugins/firebase.js'
 export default {
   data(){
     return {
@@ -142,6 +146,7 @@ export default {
       serachResults:[],
       image_src_noImage: require('@/static/NoImage.png'),
       valid: false,
+      // データベースに登録
       sankousho:{
         title: '',
         category: '',
@@ -188,10 +193,12 @@ export default {
         + "&format=json"
         + "&title=" + encodeString
         + "&booksGenreId=001"
+        // 書籍限定
         + "&applicationId=" + appId
         + "&page=1"
         + "&outOfStockFlag=1"
         + "&formatVersion=1"
+        // jsonで返ってくる
         try{
           const response = await axios.get(requestURL).then(response => response.data);
             this.dialog = true;
@@ -219,9 +226,6 @@ export default {
           }catch( error ){
             alert(error);
           }
-
-
-        this.serachResults.forEach(item => console.log(item))
     },
     selectBook( item ){
       this.sankousho.title = item.title
@@ -236,7 +240,27 @@ export default {
     closeDialoag(){
       this.dialog = false
       this.serachResults = []
-    }
+    },
+    async saveBookData(){
+      const message = 'この内容で登録してもよろしいでしょうか?'
+      const result = window.confirm(message);
+      if(!result) return // eslint-disable-line
+        try {
+          const postRef = doc(collection(db, "post_recommendations"))
+          const bookData = {
+            title: this.sankousho.title,
+            image_url: this.sankousho.imageUrl,
+            post_id: postRef.id,
+            post_category: this.sankousho.category,
+            post_url:this.sankousho.itemUrl,
+            reason: this.sankousho.reason,
+            author: this.sankousho.author
+          }
+          await setDoc(postRef, bookData)
+        }catch( error ){
+          console.error ( error )
+        }
+      }
   }
 };
 </script>
