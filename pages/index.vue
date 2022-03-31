@@ -1,14 +1,13 @@
 <template>
   <div class="fix-width mt-12">
 
-    <v-row no-gutters class="d-flex justify-space-around mb-10">
+    <v-row no-gutters class="d-flex justify-space-between mb-10">
       <!-- サイズが小さい時display: none -->
-        <v-col cols="12" sm="12" md="2" class="d-flex flex-column justify-between-around">
+        <v-col cols="12" sm="12" md="2">
               <SideMenu class="mt-10 mb-10" />
-              <div class="sideContents">サイドコンテンツが入ります</div>
           </v-col>
 
-          <v-col cols="12" sm="8" md="9" class="bg-main">
+          <v-col cols="12" sm="8" md="9" class="bg-main mx-sm-auto">
                 <v-container>
                   <v-row>
                     <v-col
@@ -20,13 +19,44 @@
                     >
                       <v-card
                         color="grey lighten-5"
-                        width="270"
-                        height="300"
+                        width="320"
+                        height="270"
                         >
-                        <v-responsive :aspect-ratio="16/9">
-                          <v-card-text>
-                          </v-card-text>
-                        </v-responsive>
+                        <v-container>
+                          <v-row no-gutters>
+                            <v-col cols="5" class="mx-auto">
+                                <v-responsive :aspect-ratio="16/9">
+                                      <v-img
+                                        :src="required_image"
+                                      >
+                                      </v-img>
+                                </v-responsive>
+                            </v-col>
+                          </v-row>
+                          <v-row no-gutters>
+                            <v-col cols="12" class="d-flex">
+
+                              <v-row>
+                                <v-col cols="3" class="bg-yellow">
+                                <v-avatar
+                                  color="primary"
+                                  size="56"
+                                >
+                                </v-avatar>
+                                <p class="name-text">@username</p>
+                                </v-col>
+
+                                <v-col cols="9">
+                                  <v-card-text class="text-size">
+                                    めちゃいとおしい.めちゃいとおしいめちゃいとおしい
+                                    </v-card-text>
+                                </v-col>
+
+                              </v-row>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+
                       </v-card>
 
                     </v-col>
@@ -56,6 +86,7 @@ export default {
   data(){
     return{
       page: 1,
+      required_image: require('@/static/book.png')
     }
   }
 
@@ -64,18 +95,32 @@ export default {
 
 <style scoped>
 
-
+.text-size {
+  font-size: 12px;
+  line-height: 1.2;
+}
 .bg-main {
   background-color: grey;
 }
 
-.sideContents {
-  width: 200px;
-  height: 200px;
-  background-color: black;
+
+
+.name-text {
+  display: inline-block;
+  padding-top: 3px;
+  font-weight: bold;
+  font-size: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 
-</style>>
 
 </style>
+
+
+  // <v-responsive :aspect-ratio="16/9">
+  //                               <v-card-text>
+  //                               </v-card-text>
+  //                             </v-responsive>

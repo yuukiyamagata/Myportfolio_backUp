@@ -65,7 +65,7 @@ export default {
 <style lang="scss">
 
 .introduction-contents {
-  max-width: 1200px !important;
+  max-width: 1000px !important;
   margin: 0 auto;
 }
 
@@ -80,7 +80,7 @@ ol li {
   text-align: center;
   margin: 24px auto;
   padding: 8px 0;
-  border-radius: 2px;
+  border-radius: 7px;
   cursor: pointer;
   color: red;
 }
@@ -115,10 +115,6 @@ ol li {
 }
 
 /* .intoroduction */
-
-.introduction {
-  max-width: 1200px;
-}
 
 .introduction section + section {
   margin-top: 48px;
