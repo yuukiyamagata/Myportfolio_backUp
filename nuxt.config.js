@@ -9,8 +9,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - MyApp',
-    title: 'MyApp',
+    titleTemplate: '%s',
+    title: 'SANKOUSHO LABO',
     htmlAttrs: {
       lang: 'ja',
     },
@@ -20,7 +20,7 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/logo.png' }],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css

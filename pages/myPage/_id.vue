@@ -24,16 +24,31 @@
     </v-container>
     <v-divider ></v-divider>
     <v-tabs>
-      <v-tab>お気に入りした参考書</v-tab>
-      <v-tab>いいね</v-tab>
+      <v-tab @click="goToFav">お気に入りした参考書</v-tab>
+      <v-tab @click="goToLike">いいね</v-tab>
       <v-tab>フォロー</v-tab>
       <v-tab>フォロワー</v-tab>
   </v-tabs>
+  <NuxtChild />
   </div>
 </template>
 
 <script>
   export default {
+    data(){
+      return {
+        id: this.$route.params.id
+      }
+    },
+    methods:{
+      goToFav(){
+        console.log('発火')
+        this.$router.push(`/mypage/${this.id}/favorite`)
+      },
+      goToLike(){
+      this.$router.push(`/mypage/${this.id}/like`)
+      }
+    }
   }
 </script>
 

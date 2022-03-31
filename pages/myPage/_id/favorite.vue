@@ -1,6 +1,6 @@
 <template>
   <div>
-    like
+    fav
   </div>
 </template>
 

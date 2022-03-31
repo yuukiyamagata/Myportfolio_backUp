@@ -48,11 +48,12 @@
       <v-card-actions class="bg-green pa-0 text-center">
         <v-btn
           outlined
-          color="indigo"
+          color="red"
+          large
           class="mx-auto mb-4"
           @click="registerAccoumt"
         >
-        登録する
+        上記の情報で登録する
       </v-btn>
       </v-card-actions>
 

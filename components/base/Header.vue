@@ -1,20 +1,20 @@
 <template>
   <v-app-bar app class="white" clipped-left elevation="1">
-    <header>
-      <img :src="img_src" class="header-logo">
-      <v-toolbar-title class="header-title">SANKOUSYO LABO</v-toolbar-title>
+    <header @click="$router.push('/')">
+        <img :src="img_src" class="header-logo">
+        <v-toolbar-title class="header-title">SANKOUSYO LABO</v-toolbar-title>
     </header>
     <v-spacer></v-spacer>
       <v-btn
       outlined
-      color="teal"
+      color="indigo"
       class="mr-4"
       @click="$router.push('/auth/login')">
         ログイン
       </v-btn>
       <v-btn
       outlined
-      color="indigo"
+      color="red"
       @click="$router.push('/auth/register')"
       >
         新規登録
@@ -39,6 +39,7 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  cursor: pointer;
 }
 .header-logo {
   object-fit: cover;

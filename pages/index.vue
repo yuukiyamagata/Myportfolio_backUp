@@ -1,141 +1,81 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col cols="4">
+  <div class="fix-width mt-12">
 
-      <v-card
-        class="mx-auto"
-        max-width="344"
-      >
-        <v-card-text>
-          <div>参考書タイトル</div>
-          <p class="text-h4 text--primary">
-            参考書画像
-          </p>
-          <p>アイコン</p>
-          <div class="text--primary">
-            とてもすばらいい参考書です<br>
-            英語の成績が上がりました。この...
-          </div>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn
-            text
-            color="teal accent-4"
-            @click="reveal = true"
-          >
-            もっと読む
-          </v-btn>
-        </v-card-actions>
+    <v-row no-gutters class="d-flex justify-space-around mb-10">
+      <!-- サイズが小さい時display: none -->
+        <v-col cols="12" sm="12" md="2" class="d-flex flex-column justify-between-around">
+              <SideMenu class="mt-10 mb-10" />
+              <div class="sideContents">サイドコンテンツが入ります</div>
+          </v-col>
 
-        <v-expand-transition>
-          <v-card
-            v-if="reveal"
-            class="transition-fast-in-fast-out v-card--reveal"
-            style="height: 100%;"
-          >
-            <v-card-text class="pb-0">
-              <p class="text-h4 text--primary">
-                Origin
-              </p>
-              <p>late 16th century (as a noun denoting a place where alms were distributed): from medieval Latin eleemosynarius, from late Latin eleemosyna ‘alms’, from Greek eleēmosunē ‘compassion’ </p>
-            </v-card-text>
-            <v-card-actions class="pt-0">
-              <v-btn
-                text
-                color="teal accent-4"
-                @click="reveal = false"
-              >
-                Close
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-expand-transition>
-      </v-card>
+          <v-col cols="12" sm="8" md="9" class="bg-main">
+                <v-container>
+                  <v-row>
+                    <v-col
+                    v-for="n in 9"
+                    :key="n"
+                    cols="12"
+                    sm="6"
+                    md="4"
+                    >
+                      <v-card
+                        color="grey lighten-5"
+                        width="270"
+                        height="300"
+                        >
+                        <v-responsive :aspect-ratio="16/9">
+                          <v-card-text>
+                          </v-card-text>
+                        </v-responsive>
+                      </v-card>
 
-      </v-col>
-      <v-col cols="4">
-        <v-card
-        class="mx-auto"
-        max-width="344"
-      >
-        <v-card-text>
-          <div>参考書タイトル</div>
-          <p class="text-h4 text--primary">
-            参考書画像
-          </p>
-          <p>アイコン画像</p>
-          <div class="text--primary">
-            すごくわかりやすいです!<br>
-            数学の..
-          </div>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn
-            text
-            color="teal accent-4"
-            @click="reveal = true"
-          >
-            もっと読む
-          </v-btn>
-        </v-card-actions>
+                    </v-col>
+                  </v-row>
+                </v-container>
+          </v-col>
+      </v-row>
 
-        <v-expand-transition>
-          <v-card
-            v-if="reveal"
-            class="transition-fast-in-fast-out v-card--reveal"
-            style="height: 100%;"
-          >
-            <v-card-text class="pb-0">
-              <p class="text-h4 text--primary">
-                Origin
-              </p>
-              <p>late 16th century (as a noun denoting a place where alms were distributed): from medieval Latin eleemosynarius, from late Latin eleemosyna ‘alms’, from Greek eleēmosunē ‘compassion’ </p>
-            </v-card-text>
-            <v-card-actions class="pt-0">
-              <v-btn
-                text
-                color="teal accent-4"
-                @click="reveal = false"
-              >
-                Close
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-expand-transition>
-      </v-card>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="3">
+      <v-row class="mb-10">
+        <v-col class="text-center">
+          <v-pagination
+            v-model="page"
+            :length="4"
+            circle
+          ></v-pagination>
+        </v-col>
+      </v-row>
 
-      </v-col>
-
-    </v-row>
-    <v-row>
-      <v-col cols="3">
-
-      </v-col>
-    </v-row>
-  </v-container>
-
+  </div>
 </template>
 
 <script>
 export default {
-    data: () => ({
-    reveal: false,
-  }),
+  components: {
+    SideMenu: () => import("~/components/base/SideMenu"),
+  },
+  data(){
+    return{
+      page: 1,
+    }
+  }
+
 }
 </script>
 
 <style scoped>
-.v-card--reveal {
-  bottom: 0;
-  opacity: 1 !important;
-  position: absolute;
-  width: 100%;
+
+
+.bg-main {
+  background-color: grey;
 }
 
+.sideContents {
+  width: 200px;
+  height: 200px;
+  background-color: black;
+}
+
+
+</style>>
 
 </style>

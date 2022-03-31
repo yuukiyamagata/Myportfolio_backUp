@@ -265,7 +265,7 @@ export default {
           itemUrl: '',
         }
         this.searchWord = ''
-        this.image_src_noImage = require('@/static/noImage.png')
+        this.image_src_noImage = require('@/static/NoImage.png')
         this.$router.push('/')
       },
   },
