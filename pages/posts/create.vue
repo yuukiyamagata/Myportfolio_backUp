@@ -6,6 +6,9 @@
     </v-col>
     <v-col>
       <v-form ref="form" v-model="valid">
+        <nuxt-link to="/introduce#howToPost" class="mb-6 d-block">
+          作成方法はこちらから
+        </nuxt-link>
         <v-row>
           <v-col class="form-width" cols="12" sm="12">
           <v-row>
@@ -183,6 +186,10 @@ export default {
   },
   methods:{
     async search(){
+      if(!this.searchWord){
+        alert('検索キーワードを入力してください')
+        return
+      }
       const baseUrl ='https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?';
       const appId = "1089430002983138325"
       const encodeString = encodeURI(this.searchWord);
@@ -197,13 +204,13 @@ export default {
         try{
           const response = await axios.get(requestURL).then(response => response.data);
             this.dialog = true;
-            let id = 0;
             response.Items.forEach(book => {
               const title = book.Item.title
               const author = book.Item.author
               const publisherName = book.Item.publisherName
               const imageUrl = book.Item.largeImageUrl
               const itemUrl = book.Item.itemUrl
+              const id = this.serachResults.length + 1
 
               this.serachResults.push({
                 id,
@@ -212,7 +219,6 @@ export default {
                 imageUrl,
                 itemUrl,
               })
-              id++
             })
 
           if(response === undefined){

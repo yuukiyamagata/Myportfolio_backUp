@@ -17,42 +17,35 @@
 
     <v-card-text class="d-flex flex-column mx-auto">
       <v-text-field
+        v-model="userName"
         label="ユーザー名"
         placeholder="30文字以内"
-        dense
-        outlined
-        v-model="userName"
         :rules="nameRules"
       />
       <v-text-field
+        v-model="email"
         label="メールアドレス"
         placeholder="aaaa@example.com"
-        dense
-        outlined
         :rules="mailRules"
-        v-model="email"
       />
       <v-text-field
-        label="パスワード"
         v-model="password"
+        label="パスワード"
         placeholder="半角英数字8以上"
-        dense
-        outlined
         :type="isShow ? 'text' : 'password'"
-        @click:append="isShow = !isShow"
-        :append-icon="isShow ? 'mdi-eye' : 'mdi-eye-off'"
         :rules="passwordRules"
+        :append-icon="isShow ? 'mdi-eye' : 'mdi-eye-off'"
+        @click:append="isShow = !isShow"
       />
     </v-card-text>
       <v-card-actions class="bg-green pa-0 text-center">
         <v-btn
-          outlined
-          color="red"
+          color="primary"
           large
           class="mx-auto mb-4"
           @click="registerAccoumt"
         >
-        上記の情報で登録する
+        ユーザー情報を登録する
       </v-btn>
       </v-card-actions>
 
@@ -113,8 +106,8 @@ export default {
   data(){
     return {
       image_src: require('@/static/logo.png'),
-      image_src_google: require('@/static/googleLogo.png'),
-      image_src_twitter: require('@/static/Twitter.png'),
+      image_src_google: require('@/static/GoogleLogo.png'),
+      image_src_twitter: require('@/static/TwitterLogo.png'),
       userName:'',
       email:'',
       password:'',

@@ -58,6 +58,16 @@
         </v-list>
       </v-menu>
 
+      <v-btn
+        elevation="2"
+        @click="createPost"
+        color="primary"
+        outlined
+        class="ml-4"
+      >
+        新規投稿
+      </v-btn>
+
     </div>
 
 
@@ -103,6 +113,10 @@ export default {
           this.$router.push('/myPage/1')
         }
 
+    },
+    createPost(){
+      // User情報の確認認可しているかどうか
+      this.$router.push('/posts/create')
     }
   }
 

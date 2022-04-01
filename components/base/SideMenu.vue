@@ -28,3 +28,18 @@
         </v-list>
     </v-sheet>
 </template>
+
+<script>
+export default {
+  data(){
+    return {
+      subjects:[
+        '数学',
+        '英語',
+        '理科',
+        
+      ]
+    }
+  }
+}
+</script>

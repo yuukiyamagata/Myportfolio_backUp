@@ -34,14 +34,20 @@
       </p>
     </section>
 
-    <section class="howToUse">
+    <section class="howToPost" id="howToPost">
       <h1>投稿の仕方</h1>
-      <ol class="howToUse__contents">
-        <li>アカウント作成終了後、ログインをしたのち画面右上の投稿するのボタンをクリックします。</li>
-        <li>ボタンをクリックすると参考書投稿画面に移動します</li>
-        <li><span style="color: red">必須項目を入力し</span>投稿ボタンを押すと投稿されます。</li>
-        <li class="font-weight-bold">※おすすめの使い方: 参考書検索欄にキーワードを入力すると、そのキーワードに一致した検索結果が表示され、その項目を選択すると必須項目の入力が半自動で行われます</li>
-      </ol>
+      <div class="howToPost__contents">
+        <p>アカウント作成終了後、ログインをしたのち画面右上の投稿するのボタンをクリックします。ボタンをクリックすると参考書投稿画面に移動します。<span style="color: red">以下の必須項目を入力し</span>投稿ボタンを押すと投稿されます。</p>
+
+        <ol>
+          <li>参考書タイトル(文字数制限 40文字)</li>
+          <li>著者・出版社名(いずれかを入力。文字数制限 20文字)</li>
+          <li>参考書おすすめ理由(文字数制限 300文字)</li>
+          <li>カテゴリー(数学・英語・理科・社会・現代文の中から参考書のカテゴリーを選択します)</li>
+          <li class="font-weight-bold">※おすすめの使い方: 参考書検索欄にキーワードを入力すると、そのキーワードに一致した検索結果が表示され、その項目を選択すると必須項目の入力が自動で行われます</li>
+        </ol>
+
+      </div>
       </section>
 
         <nuxt-link to="/auth/register" class="link-border-line-none">

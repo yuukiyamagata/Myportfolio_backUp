@@ -17,7 +17,7 @@ export default {
 <style>
 
 .bg-gray {
-  background: rgb(212, 211, 211);
+  background: ghostwhite;
 }
 
 </style>

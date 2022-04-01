@@ -21,8 +21,9 @@
         label="パスワード"
         @click:append="showPassword = !showPassword" />
       <v-card-actions>
-        <v-btn class="info" @click="submit">ログイン</v-btn>
+        <v-btn block class="primary" @click="submit">ログイン</v-btn>
       </v-card-actions>
+      <nuxt-link to="/auth/forgetPassword" class="d-block">パスワードお忘れの方はこちら</nuxt-link>
     </v-form>
     </v-card-text>
 
@@ -73,7 +74,9 @@ export default {
     return {
       showPassword: false,
       userName: '',
-      password: ''
+      password: '',
+      image_src_google: require('@/static/GoogleLogo.png'),
+      image_src_twitter: require('@/static/TwitterLogo.png')
     }
   },
   methods: {
