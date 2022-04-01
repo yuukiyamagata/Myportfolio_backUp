@@ -1,6 +1,6 @@
 <template>
-  <div class="mx-auto">
-    <v-container fluid class="px-12">
+  <div class="mx-auto mypage-width">
+    <v-container class="px-12">
       <v-row>
         <v-col cols="6">
           <v-row d-flex>
@@ -22,14 +22,17 @@
         </v-col>
       </v-row>
     </v-container>
-    <v-divider ></v-divider>
-    <v-tabs>
-      <v-tab @click="goToFav">お気に入りした参考書</v-tab>
-      <v-tab @click="goToLike">いいね</v-tab>
-      <v-tab>フォロー</v-tab>
-      <v-tab>フォロワー</v-tab>
-  </v-tabs>
-  <NuxtChild />
+
+    <div class="userInfo">
+      <v-divider></v-divider>
+        <v-tabs>
+          <v-tab @click="goToFav">お気に入りした参考書</v-tab>
+          <v-tab @click="goToLike">いいね</v-tab>
+          <v-tab @click="goToFollow">フォロー</v-tab>
+          <v-tab @click="goToFollower">フォロワー</v-tab>
+      </v-tabs>
+      <NuxtChild />
+    </div>
   </div>
 </template>
 
@@ -45,13 +48,29 @@
         console.log('発火')
         this.$router.push(`/mypage/${this.id}/favorite`)
       },
-      goToLike(){
-      this.$router.push(`/mypage/${this.id}/like`)
-      }
+        goToLike(){
+        this.$router.push(`/mypage/${this.id}/like`)
+      },
+        goToFollow(){
+        this.$router.push(`/mypage/${this.id}/follow`)
+      },
+        goToFollower(){
+        this.$router.push(`/mypage/${this.id}/follower`)
+      },
     }
   }
 </script>
 
 <style>
+
+.mypage-width {
+  max-width: 900px;
+}
+
+@media (min-width: 900px){
+  .userInfo{
+    max-width: 80%;
+  }
+}
 
 </style>

@@ -40,27 +40,20 @@
         <li>アカウント作成終了後、ログインをしたのち画面右上の投稿するのボタンをクリックします。</li>
         <li>ボタンをクリックすると参考書投稿画面に移動します</li>
         <li><span style="color: red">必須項目を入力し</span>投稿ボタンを押すと投稿されます。</li>
-        <li style="color: blue">(※おすすめの使い方)参考書検索欄にキーワードを入力すると、そのキーワードに一致した検索結果が表示され、その項目を選択すると必須項目の入力が半自動で行われます</li>
+        <li class="font-weight-bold">※おすすめの使い方: 参考書検索欄にキーワードを入力すると、そのキーワードに一致した検索結果が表示され、その項目を選択すると必須項目の入力が半自動で行われます</li>
       </ol>
       </section>
 
-        <div class="btn" @click="goToRegister">
-          新規登録はこちらから
-        </div>
+        <nuxt-link to="/auth/register" class="link-border-line-none">
+          <div class="btn">
+            新規登録はこちらから
+          </div>
+        </nuxt-link>
 
       </div>
   </div>
 </template>
 
-<script>
-export default {
-  methods:{
-    goToRegister(){
-      this.$router.push('/auth/register')
-    }
-  }
-}
-</script>
 
 <style lang="scss">
 

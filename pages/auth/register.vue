@@ -3,13 +3,12 @@
     class="mx-auto text-center my-12"
     max-width="384"
     >
-    <v-img
-    class="mx-auto"
-      height="120"
-      width="170"
-      aspect-ratio="16/9"
-      :src="image_src"
-    ></v-img>
+      <v-img
+      class="mx-auto"
+        height="120"
+        width="170"
+        :src="image_src"
+      ></v-img>
   <v-form ref="form" v-model="valid">
     <v-card-title>
       <p class="mx-auto font-weight-black pa-0">新規登録</p>

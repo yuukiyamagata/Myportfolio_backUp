@@ -1,6 +1,5 @@
 <template>
-  <div class="fix-width mt-12">
-
+    <v-container class="mt-12 bg" fluid>
     <v-row no-gutters class="d-flex justify-space-between mb-10">
       <!-- サイズが小さい時display: none -->
         <v-col cols="12" sm="12" md="2">
@@ -8,7 +7,7 @@
           </v-col>
 
           <v-col cols="12" sm="8" md="9" class="bg-main mx-sm-auto">
-                <v-container>
+                <v-container fluid>
                   <v-row>
                     <v-col
                     v-for="n in 9"
@@ -19,10 +18,10 @@
                     >
                       <v-card
                         color="grey lighten-5"
-                        width="320"
+                        width="300"
                         height="270"
                         >
-                        <v-container>
+                        <v-container fluid>
                           <v-row no-gutters>
                             <v-col cols="5" class="mx-auto">
                                 <v-responsive :aspect-ratio="16/9">
@@ -48,7 +47,7 @@
 
                                 <v-col cols="9">
                                   <v-card-text class="text-size">
-                                    めちゃいとおしい.めちゃいとおしいめちゃいとおしい
+                                    おもしろい。おもしろい。おもしろいおもしろい。おもしろい。おもしろいおもしろい。
                                     </v-card-text>
                                 </v-col>
 
@@ -75,7 +74,8 @@
         </v-col>
       </v-row>
 
-  </div>
+
+    </v-container>
 </template>
 
 <script>
@@ -99,11 +99,9 @@ export default {
   font-size: 12px;
   line-height: 1.2;
 }
-.bg-main {
+.bg {
   background-color: grey;
 }
-
-
 
 .name-text {
   display: inline-block;
@@ -118,9 +116,3 @@ export default {
 
 
 </style>
-
-
-  // <v-responsive :aspect-ratio="16/9">
-  //                               <v-card-text>
-  //                               </v-card-text>
-  //                             </v-responsive>

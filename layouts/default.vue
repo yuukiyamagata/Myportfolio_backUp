@@ -2,9 +2,7 @@
   <v-app dark>
     <Header />
       <v-main class="bg-color">
-        <v-container>
           <Nuxt />
-        </v-container>
       </v-main>
       <Footer />
   </v-app>

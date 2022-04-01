@@ -1,5 +1,5 @@
 <template>
-  <v-row class="white mx-auto d-flex flex-column max-width">
+  <v-row class="white mx-auto d-flex flex-column create-page-width mb-10">
 
     <v-col cols="12" sm="12" class="mb-4">
       <p class="text-h4  text-center mt-4">参考書の投稿</p>
@@ -273,8 +273,8 @@ export default {
 </script>
 
 <style>
-  .max-width {
-    width: 70%;
+  .create-page-width {
+    max-width: 600px;
   }
 
   .form-width {
@@ -283,7 +283,7 @@ export default {
   }
 
   .bg-color{
-    background-color: #ECEFF1;
+    /* background-color: #ECEFF1; */
   }
 
   .img-fit {
