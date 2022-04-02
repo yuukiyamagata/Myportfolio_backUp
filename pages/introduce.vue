@@ -34,7 +34,7 @@
       </p>
     </section>
 
-    <section class="howToPost" id="howToPost">
+    <section id="howToPost" class="howToPost">
       <h1>投稿の仕方</h1>
       <div class="howToPost__contents">
         <p>アカウント作成終了後、ログインをしたのち画面右上の投稿するのボタンをクリックします。ボタンをクリックすると参考書投稿画面に移動します。<span style="color: red">以下の必須項目を入力し</span>投稿ボタンを押すと投稿されます。</p>

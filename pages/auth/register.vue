@@ -102,7 +102,7 @@
 
 <script>
 export default {
-  layout: 'componentLess',
+  layout: 'empty',
   data(){
     return {
       image_src: require('@/static/logo.png'),

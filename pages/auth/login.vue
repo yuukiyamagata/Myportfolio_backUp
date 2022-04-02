@@ -69,7 +69,7 @@
 
 <script>
 export default {
-  layout: 'componentLess',
+  layout: 'empty',
   data(){
     return {
       showPassword: false,

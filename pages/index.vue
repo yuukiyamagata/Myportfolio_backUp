@@ -35,18 +35,18 @@
                           <v-row>
                             <v-col cols="12">
 
-                              <v-row no-gutters>
+                              <v-row  no-gutters>
                                 <v-col cols="3">
                                 <v-avatar
                                   color="primary"
                                   size="50"
                                 >
                                 </v-avatar>
-                                <p class="name-text">@username</p>
+                                <p class="user-name">@username</p>
                                 </v-col>
 
                                 <v-col cols="9" class="bg-blue">
-                                  <v-card-text class="text-size">
+                                  <v-card-text class="comment font-weight-medium ">
                                     おもしろい。おもしろい。おもしろいおもしろい。おもしろい。おもしろいおもしろい。
                                     </v-card-text>
                                 </v-col>
@@ -95,12 +95,12 @@ export default {
 
 <style scoped>
 
-.text-size {
+.comment {
   font-size: 12px;
   line-height: 1.2;
 }
 
-.name-text {
+.user-name {
   display: inline-block;
   padding-top: 3px;
   font-weight: bold;

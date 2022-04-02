@@ -1,14 +1,12 @@
 <template>
   <div>
-    <v-card>
-      
-    </v-card>
+    Forget Password
   </div>
 </template>
 
 <script>
 export default {
-  layout: 'componentLess'
+  layout: 'empty'
 }
 </script>
 

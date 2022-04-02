@@ -1,7 +1,7 @@
 <template>
   <v-app-bar app class="white" clipped-left elevation="1">
     <header @click="$router.push('/')">
-        <img :src="img_src" class="header-logo">
+        <img :src="img_src" class="logo">
         <v-toolbar-title class="header-title">SANKOUSYO LABO</v-toolbar-title>
     </header>
     <v-spacer></v-spacer>
@@ -38,7 +38,7 @@
           </v-avatar>
         </template>
         <v-list>
-          <v-list-item-group >
+          <v-list-item-group>
             <v-list-item
                 v-for="menu in menus"
                 :key="menu.name"
@@ -59,10 +59,10 @@
       </v-menu>
 
       <v-btn
-        elevation="2"
-        @click="createPost"
+        elevation="0"
         color="indigo"
         class="ml-4 white--text"
+        @click="createPost"
         >
         <v-icon small class="mr-2">mdi-pencil</v-icon>
         投稿
@@ -130,11 +130,6 @@ header {
   flex-direction: row;
   justify-content: center;
   cursor: pointer;
-}
-.header-logo {
-  object-fit: cover;
-  width: 50px;
-  height: 40px;
 }
 
 .header-title {

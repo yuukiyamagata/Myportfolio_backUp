@@ -13,7 +13,7 @@ module.exports = {
   // add your custom rules here
   rules: {
     "vue/multi-word-component-names": ["error", {
-      "ignores": ['index', 'login',  'create', 'edit', 'preview',  'register', 'logout', 'Header', 'Footer', 'loading', '_bookId', 'test', 'like', 'myPage', 'favorite', 'introduce', 'follow', 'follower']
+      "ignores": ['index', 'login',  'create', 'edit', 'preview',  'register', 'logout', 'Header', 'Footer', 'loading', '_bookId', 'test', 'like', 'myPage', 'favorite', 'introduce', 'follow', 'follower', 'empty']
     }]
   },
 }
