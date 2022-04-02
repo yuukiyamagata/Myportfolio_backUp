@@ -95,7 +95,7 @@
                     max-width="280"
                     align="center"
                     >
-                  <div class="bg-color">
+                  <div>
                       <v-img
                         :src="result.imageUrl"
                         class="img-fit"
@@ -288,9 +288,6 @@ export default {
     margin: 0 auto;
   }
 
-  .bg-color{
-    /* background-color: #ECEFF1; */
-  }
 
   .img-fit {
     object-fit: cover;

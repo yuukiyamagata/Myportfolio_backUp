@@ -18,7 +18,7 @@
           </v-row>
         </v-col>
         <v-col cols="4" class="text-right">
-          <v-btn color="indigo" :to="{path: `/mypage/${$route.params.id}/edit`}" outlined>編集</v-btn>
+          <v-btn color="indigo" :to="{path: `/mypage/${$route.params.id}/mypagEdit`}" outlined>編集</v-btn>
         </v-col>
       </v-row>
     </v-container>
