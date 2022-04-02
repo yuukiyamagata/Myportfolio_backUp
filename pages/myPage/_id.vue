@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto mypage-width">
+  <div class="mx-auto mypage-width mt-12">
     <v-container class="px-12">
       <v-row>
         <v-col cols="6">
@@ -27,7 +27,7 @@
       <v-divider></v-divider>
         <v-tabs>
           <v-tab @click="goToFav">お気に入りした参考書</v-tab>
-          <v-tab @click="goToLike">いいね</v-tab>
+          <v-tab @click="goToLike">私がおすすめした参考書</v-tab>
           <v-tab @click="goToFollow">フォロー</v-tab>
           <v-tab @click="goToFollower">フォロワー</v-tab>
       </v-tabs>

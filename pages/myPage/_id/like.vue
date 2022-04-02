@@ -1,6 +1,6 @@
 <template>
   <div>
-    like
+    私がおすすめした参考書
   </div>
 </template>
 

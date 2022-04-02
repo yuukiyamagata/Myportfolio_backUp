@@ -1,30 +1,30 @@
 <template>
     <v-sheet rounded="lg">
-        <v-list color="transparent">
-          <v-list-item
-            v-for="n in 5"
-            :key="n"
-            link
-          >
+        <v-list color="transparent" nav>
+
+          <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>
-                List Item {{ n }}
+              <v-list-item-title class="title my-4" color="grey lighten-4">
+                カテゴリー検索
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
 
-          <v-divider class="my-2"></v-divider>
+          <v-divider></v-divider>
 
           <v-list-item
+            v-for="subject in subjects"
+            :key="subject"
             link
-            color="grey lighten-4"
           >
             <v-list-item-content>
               <v-list-item-title>
-                Refresh
+                {{ subject }}
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+
+
         </v-list>
     </v-sheet>
 </template>
@@ -37,7 +37,8 @@ export default {
         '数学',
         '英語',
         '理科',
-        
+        '社会',
+        '現代文・古文・漢文'
       ]
     }
   }

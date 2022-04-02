@@ -44,7 +44,7 @@
                 :key="menu.name"
                 :to="menu.to"
                 @click="menuClick(menu.action)"
-              >
+                >
               <v-list-item-icon class="mr-4">
                 <v-icon>{{ menu.icon }}</v-icon>
               </v-list-item-icon>
@@ -61,11 +61,11 @@
       <v-btn
         elevation="2"
         @click="createPost"
-        color="primary"
-        outlined
-        class="ml-4"
-      >
-        新規投稿
+        color="indigo"
+        class="ml-4 white--text"
+        >
+        <v-icon small class="mr-2">mdi-pencil</v-icon>
+        投稿
       </v-btn>
 
     </div>

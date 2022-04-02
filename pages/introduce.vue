@@ -124,6 +124,7 @@ ol li {
 }
 
   .introduction section {
+    padding: 16px;
     box-shadow: 0 2px 5px #ccc;
     border-radius: 5px;
 

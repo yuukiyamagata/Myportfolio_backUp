@@ -1,29 +1,29 @@
 <template>
-    <v-container class="mt-12 bg" fluid>
+    <v-container class="mt-12 mb-12 bg-main" fluid>
     <v-row no-gutters class="d-flex justify-space-between mb-10">
       <!-- サイズが小さい時display: none -->
         <v-col cols="12" sm="12" md="2">
               <SideMenu class="mt-10 mb-10" />
           </v-col>
 
-          <v-col cols="12" sm="8" md="9" class="bg-main mx-sm-auto">
+          <v-col cols="12" sm="8" md="9" class="mx-auto">
                 <v-container fluid>
                   <v-row>
                     <v-col
-                    v-for="n in 9"
-                    :key="n"
-                    cols="12"
-                    sm="6"
-                    md="4"
+                      v-for="n in 9"
+                      :key="n"
+                      cols="12"
+                      sm="6"
+                      md="4"
                     >
                       <v-card
                         color="grey lighten-5"
-                        width="300"
-                        height="270"
+                        width="280"
+                        height="300"
                         >
                         <v-container fluid>
                           <v-row no-gutters>
-                            <v-col cols="5" class="mx-auto">
+                            <v-col cols="6" class="mx-auto">
                                 <v-responsive :aspect-ratio="16/9">
                                       <v-img
                                         :src="required_image"
@@ -32,20 +32,20 @@
                                 </v-responsive>
                             </v-col>
                           </v-row>
-                          <v-row no-gutters>
-                            <v-col cols="12" class="d-flex">
+                          <v-row>
+                            <v-col cols="12">
 
-                              <v-row>
-                                <v-col cols="3" class="bg-yellow">
+                              <v-row no-gutters>
+                                <v-col cols="3">
                                 <v-avatar
                                   color="primary"
-                                  size="56"
+                                  size="50"
                                 >
                                 </v-avatar>
                                 <p class="name-text">@username</p>
                                 </v-col>
 
-                                <v-col cols="9">
+                                <v-col cols="9" class="bg-blue">
                                   <v-card-text class="text-size">
                                     おもしろい。おもしろい。おもしろいおもしろい。おもしろい。おもしろいおもしろい。
                                     </v-card-text>
@@ -99,9 +99,6 @@ export default {
   font-size: 12px;
   line-height: 1.2;
 }
-.bg {
-  background-color: grey;
-}
 
 .name-text {
   display: inline-block;
@@ -112,6 +109,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 
 
 

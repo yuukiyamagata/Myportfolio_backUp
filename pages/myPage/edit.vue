@@ -50,7 +50,7 @@
 
 <script>
 export default {
-
+  layout: 'componentLess'
 }
 </script>
 
