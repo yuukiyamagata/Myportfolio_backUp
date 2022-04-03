@@ -1,6 +1,6 @@
 <template>
   <div>
-    follower
+    投稿しよう
   </div>
 </template>
 

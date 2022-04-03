@@ -2,7 +2,7 @@
   <v-row class="white mx-auto d-flex flex-column create-page-width mb-10">
 
     <v-col cols="12" sm="12" class="mb-4">
-      <p class="text-h4  text-center mt-4">参考書の投稿</p>
+      <p class="text-h4 font-weight-bold text-center mt-4">参考書の投稿</p>
     </v-col>
     <v-col>
       <v-form ref="form" v-model="valid">
