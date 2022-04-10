@@ -12,47 +12,49 @@
                     <v-col
                       v-for="n in 9"
                       :key="n"
-                      cols="12"
+                      cols="8"
                       sm="6"
                       md="4"
+                      class="sp-display"
                     >
                       <v-card
                         color="grey lighten-5"
-                        width="280"
-                        height="300"
+                        max-width="300px"
                         >
                         <v-container fluid>
                           <v-row no-gutters>
-                            <v-col cols="6" class="mx-auto">
-                                <v-responsive :aspect-ratio="16/9">
-                                      <v-img
-                                        :src="required_image"
-                                      >
-                                      </v-img>
-                                </v-responsive>
-                            </v-col>
-                          </v-row>
-                          <v-row>
+                              <v-col cols="6" class="mx-auto">
+                                  <v-img
+                                    :src="required_image"
+                                    class="object-fit"
+                                  >
+                                  </v-img>
+                              </v-col>
                             <v-col cols="12">
+                              <v-card-title>
+                                Webを支える技術
+                              </v-card-title>
+                              <v-card-subtitle>
+                                山本陽平(著)
+                              </v-card-subtitle>
 
-                              <v-row  no-gutters>
+                              <v-divider class="mb-4"></v-divider>
+                            </v-col>
                                 <v-col cols="3">
                                 <v-avatar
                                   color="primary"
-                                  size="50"
+                                  size="40"
                                 >
                                 </v-avatar>
                                 <p class="user-name">@username</p>
                                 </v-col>
 
                                 <v-col cols="9" class="bg-blue">
-                                  <v-card-text class="comment font-weight-medium ">
+                                  <v-card-text class="comment font-weight-medium">
                                     おもしろい。おもしろい。おもしろいおもしろい。おもしろい。おもしろいおもしろい。
                                     </v-card-text>
                                 </v-col>
 
-                              </v-row>
-                            </v-col>
                           </v-row>
                         </v-container>
 
@@ -110,7 +112,14 @@ export default {
   text-overflow: ellipsis;
 }
 
+.object-fit {
+  object-fit: cover;
+}
 
-
+@media screen and (max-width: 600px){
+  .sp-display {
+    margin: 0 auto;
+  }
+}
 
 </style>
