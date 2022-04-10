@@ -5,7 +5,7 @@
         <v-col cols="9">
             <v-row dense>
               <v-col cols="12">
-              <!-- ログイン者の画像が入る -->
+              <!-- ログインユーザーの画像が入る -->
                 <v-row>
                   <v-col cols="12" class="d-flex">
                     <v-avatar size="70" color="primary" class="pt-2">
@@ -15,7 +15,7 @@
                       ></v-img>
                     </v-avatar>
                     <div class="ml-4">
-                      <p class="pt-2">#{{ $route.params.id }}のUserName</p>
+                      <p class="pt-2" v-text="userName"></p>
                       <v-img :src="image_src" class="twitter-icon-color" height="30px" width="30px"/>
                     </div>
                   </v-col>
@@ -24,8 +24,7 @@
               </v-col>
               <v-col cols="12">
                 <v-card elevation="0">
-                  <v-card-text>
-                    I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
+                  <v-card-text v-text="introduction">
                   </v-card-text>
                 </v-card>
               </v-col>
@@ -58,30 +57,41 @@
   </div>
 </template>
 
+
 <script>
+
   export default {
     data(){
       return {
-        image_src: require('@/static/TwitterLogo.png')
+        image_src: require('@/static/TwitterLogo.png'),
       }
     },
     computed:{
-      id(){
-        return Number(this.$route.params.id)
+      userName(){
+        return this.$store.getters["mypage/profileInfo"].username
+      },
+      introduction(){
+        return this.$store.getters["mypage/profileInfo"].introduction
       }
+    },
+    created(){
+      // const mypageUid = this.$route.params.mypageUid
+      const  mypageUid = 'TloQ7CdrJp9KliTlYgbd'
+      // プロフィール情報の取得
+      this.$store.dispatch("mypage/getUserInfo", mypageUid)
     },
     methods:{
       goToEditMypage(){
-        this.$router.push(`/mypage/${this.id}/mypageEdit`)
+        this.$router.push(`/mypage/mypageEdit/${this.mypageUid}`)
       },
       goToHome(){
-        this.$router.push(`/mypage/${this.id}`)
+        this.$router.push(`/mypage/${this.mypageUid}`)
       },
       goToLike(){
-      this.$router.push(`/mypage/${this.id}/like`)
+      this.$router.push(`/mypage/${this.mypageUid}/like`)
       },
       goToFav(){
-        this.$router.push(`/mypage/${this.id}/favorite`)
+        this.$router.push(`/mypage/${this.mypageUid}/favorite`)
       },
     }
   }
@@ -107,26 +117,3 @@
 </style>
 
 
-
-// v-container class="px-12">
-//       <v-row>
-//         <v-col cols="6">
-//           <v-row d-flex>
-//             <v-col cols="4">
-//               <v-avatar
-//                 color="primary"
-//                 size="100"
-//               >
-//               </v-avatar>
-//               <p class="pt-4">#userId{{ $route.params.id }}番のUserName</p>
-//             </v-col>
-//             <v-col cols="6">
-//               <p>ここに自己紹介がはいる</p>
-//             </v-col>
-//           </v-row>
-//         </v-col>
-//         <v-col cols="4" class="text-right">
-//           <v-btn color="indigo" :to="{path: `/mypage/${$route.params.id}/mypagEdit`}" outlined>編集</v-btn>
-//         </v-col>
-//       </v-row>
-//     </v-container>

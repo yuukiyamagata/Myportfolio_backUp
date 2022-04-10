@@ -1,6 +1,7 @@
 <template>
   <v-container class="mx-auto edit-mypage-width" fluid>
     <v-row class="d-flex flex-column justify-space-between">
+    <v-form ref="form" v-model="valid">
       <v-col cols="12">
         <v-img
             class="logo"
@@ -22,17 +23,23 @@
       <v-col cols="12" md="9">
         <p class="text-caption">ユーザー名</p>
         <v-text-field
+            v-model="myPageInfo.userName"
             class="mt-n4"
+            placeholder="ユーザー名を入力"
             dense
+            :rules="userNameRules"
             outlined
         ></v-text-field>
       </v-col>
       <v-col cols="12" md="9">
         <p class="text-caption">プロフィール</p>
         <v-textarea
+          v-model="myPageInfo.introduction"
           class="mt-n4"
+          placeholder="プロフィールを入力（最大200文字）"
           dense
           outlined
+          :rules="introductionRules"
         ></v-textarea>
       </v-col>
       <v-col cols="12" md="9">
@@ -46,9 +53,11 @@
         </v-text-field>
       </v-col>
       <v-col cols="12">
-        <v-btn color="info" small elevation="0" @click="saveProfile">保存</v-btn>
+        <v-btn color="info" small elevation="0" @click="saveEditProfile">保存</v-btn>
           <v-btn class="ml-4"  small elevation="0" @click="back">戻る</v-btn>
       </v-col>
+
+    </v-form>
 
     </v-row>
   </v-container>
@@ -59,22 +68,46 @@ export default {
   layout: 'empty',
   data(){
     return {
-      image_src: require('@/static/logo.png')
+      uid: '',
+      image_src: require('@/static/logo.png'),
+      valid: false,
+      userNameRules: [
+        (v) => !!v || "ユーザー名を入力してください",
+        (v) => (v && v.length <= 15) || "最大20文字です。",
+      ],
+      introductionRules:[
+        (v) => v.length <= 400 || "最大400文字です"
+      ],
+      myPageInfo:{
+        userName:'',
+        introduction: '',
+        // iconURL: ''
+        // twitterURl
+      },
     }
+  },
+  created(){
+    const uid = this.$route.params.myPageEdit
+    this.uid = uid
+    this.myPageInfo.userName = this.$store.getters['mypage/profileInfo'].username
+    this.myPageInfo.introduction = this.$store.getters['mypage/profileInfo'].introduction
+    // this.mypageInfo.iconImage = this.$store.getters['mypage/profileInfo'].iconURL
+    // this.myPageInfo.twitterURL = this.$store.getters['mypage/profileInfo'].twitterURL
   },
   methods:{
     back(){
       this.$router.back();
     },
-    saveProfile(){
+    saveEditProfile(){
+      this.$store.dispatch('mypage/editMyPage', this.myPageInfo)
+      
       alert('プロフィールを保存しました')
-      this.$router.back();
+      this.$router.push(`/myPage/${this.uid}`)
     }
   }
 }
 </script>
 
-</script>
 
 <style lang="scss" scoped>
 

@@ -109,16 +109,12 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
+  // マイページ更新時
+  // editUser(state, { iconURL, myPage }) {
+  //   state.watchedProfile.userName = myPage.userName,
+  //   state.watchedProfile.iconURL = iconURL,
+  //   state.watchedProfile.intro = myPage.intro,
+  // }
 /////////////////////　2回目 /////////////////
 
                               <v-container fluid>
