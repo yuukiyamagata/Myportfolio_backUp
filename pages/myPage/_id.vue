@@ -49,7 +49,7 @@
       <v-divider></v-divider>
         <v-tabs>
           <v-tab @click="goToHome">Home</v-tab>
-          <v-tab @click="goToLike">私がおすすめした参考書</v-tab>
+          <v-tab @click="goMyPost">私がおすすめした参考書</v-tab>
           <v-tab @click="goToFav">お気に入りした参考書</v-tab>
       </v-tabs>
       <NuxtChild />
@@ -81,14 +81,16 @@
       this.$store.dispatch("mypage/getUserInfo", mypageUid)
     },
     methods:{
+
+      // タブメニューリファクタリング
       goToEditMypage(){
         this.$router.push(`/mypage/mypageEdit/${this.mypageUid}`)
       },
       goToHome(){
         this.$router.push(`/mypage/${this.mypageUid}`)
       },
-      goToLike(){
-      this.$router.push(`/mypage/${this.mypageUid}/like`)
+      goMyPost(){
+      this.$router.push(`/mypage/${this.mypageUid}/myPost`)
       },
       goToFav(){
         this.$router.push(`/mypage/${this.mypageUid}/favorite`)
