@@ -1,8 +1,106 @@
 <template>
-    <div class="book-page-width">
-      <v-container fluid>
+    <div class="book-page-width mx-auto">
+      {{ $route.params.id }}
+      <v-container fluid class="my-10">
         <v-row>
-          
+          <v-col cols="4">
+            <v-row class="d-flex flex-column mb-6">
+                <v-col cols="11" class="ml-auto">
+                  <v-responsive
+                  :aspect-ration=16/9
+                  >
+                    <v-img
+                      :src="image_src"
+                      flat
+                      contain
+                    >
+                    </v-img>
+                  </v-responsive>
+                </v-col>
+                <v-col cols="12">
+                  <p class="text-center text-sm-h6 text-body-1 font-weight-bold">タイトル</p>
+                  <p class="text-center text-body-2">著者名</p>
+                </v-col>
+                <v-divider class="mb-4"></v-divider>
+                <v-col class="text-center">
+                    <v-menu
+                      open-on-hover
+                      top
+                      offset-y
+                    >
+                  <template #activator="{ on, attrs }">
+                      <v-icon color="grey lighten-1" v-bind="attrs" v-on="on" size="30">
+                        mdi-cart
+                      </v-icon>
+                      <span class="d-block">購入</span>
+                  </template>
+
+                  <v-list>
+                      <v-list-item>
+                        <v-list-item-title >
+                          <nuxt-link to="/" class="link-border-line-none">
+                          楽天サイトで見てみる
+                          </nuxt-link>
+                        </v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
+                </v-col>
+            </v-row>
+          </v-col>
+          <v-divider vertical></v-divider>
+          <v-col cols="7">
+            <v-sheet elevation="1" tile>
+              <v-card elevation="0">
+                <v-card-title class='text-h6 font-weight-black'>Comment</v-card-title>
+                    <v-sheet
+                    elevation="0"
+                    class="mx-auto"
+                    >
+                    <v-list-item three-line>
+                        <v-list-item-avatar
+                          size="56"
+                          color="primary"
+                        ></v-list-item-avatar>
+
+                        <v-list-item-content>
+                          <div class="text-overline mb-4">
+                            @username
+                          </div>
+                        </v-list-item-content>
+                      </v-list-item>
+
+                    <v-card-text>
+                      Morbi mattis ullamcorper velit. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Fusce convallis metus id felis luctus adipiscing. Aenean massa. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Nulla consequat massa quis enim. Praesent venenatis metus at tortor pulvinar varius. Donec venenatis vulputate lorem. Phasellus accumsan cursus velit. Pellentesque ut neque.
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-btn
+                        text
+                        color="indigo accent-4"
+                        class="mb-4"
+                      >
+                        一覧へ戻る
+                      </v-btn>
+
+                        <v-btn
+                          class="mx-2"
+                          fab
+                          dark
+                          color="indigo"
+                          absolute
+                          right
+                          small
+                          @click="confirm"
+                          >
+                            <v-icon dark size="20" >
+                              mdi-plus
+                            </v-icon>
+                          </v-btn>
+                    </v-card-actions>
+                    </v-sheet>
+              </v-card>
+            </v-sheet>
+          </v-col>
         </v-row>
       </v-container>
     </div>
@@ -15,6 +113,12 @@ export default {
     return{
       image_src: require("@/static/book.png"),
     }
+  },
+  methods:{
+    confirm(){
+      const result = window.confirm('お気に入りに登録しますか?')
+      if(!result) return // eslint-disable-line
+    }
   }
 }
 </script>
@@ -25,124 +129,7 @@ export default {
   max-width: 900px;
 }
 
-
-
-
-    // <v-img
-    //               :src="image_src"
-    //               flat
-    //               aspect-ratio="16/9"
-    //               min-height="300"
-    //               max-height="360"
-    //               class="white"
-    //               contain
-    //             />
-
-
-.user-info {
-  /* background-color: blue; */
-  padding: 50px;
-  display: flex;
-}
-
-.user-info-name {
-  margin-left: 20px;
-  align-self: center;
-}
-
-.comment-area {
-  max-width: 350px;
-  min-height: 300px;
-  border: 1px solid white;
-
-  p{
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-  }
-}
-
-.book-title p{
-  display: inline-block;
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgb(226, 216, 216);
-}
-
-.link {
-  color: rgba(226, 24, 74, 0.904);
-  text-decoration: none;
-}
-
 </style>
 
 
 
-
-
-
-
-// <v-row fluid class="mt-10 mx-auto d-flex">
-//       <v-col cols="6">
-//         <div class="d-flex flex-column">
-//           <div class="img-content">
-//           </div>
-//             <div class="subtitle-1 text-center pt-4 book-title">
-//               <p>#{{ $route.params.bookId }}番目の本のタイトル</p>
-//             </div>
-//           <div class="text-center mt-3">
-//             <nuxt-link to="/" class="link">
-//               商品購入はこちらから
-//             </nuxt-link>
-//         </div>
-//       </div>
-//     </v-col>
-
-//   <v-divider vertical></v-divider>
-
-//       <v-col cols="5">
-//         <div class="user-info">
-//         <div class="user-info-avatar">
-//           <v-avatar
-//           color="grey darken-1"
-//           size="62"
-//           >
-//             <v-icon dark size="70">
-//             mdi-account-circle
-//             </v-icon>
-//           </v-avatar>
-//         </div>
-//         <div class="user-info-name">
-//           <p class="text--gray">UserName</p>
-//         </div>
-//       </div>
-
-//       <div class="comment-area">
-//           <h3>コメント</h3>
-//           <p>あああああああああああああああああああああああああああ
-//             ああああああああああああああああああああああああああああ
-//           </p>
-//       </div>
-
-//       <div class="btn--group">
-//         <v-btn
-//           class="mx-2"
-//           fab
-//           dark
-//           small
-//           color="pink"
-//         >
-//         <v-icon>mdi-heart</v-icon>
-//         </v-btn>
-
-//         <v-btn
-//         class="ma-2"
-//         text
-//         icon
-//         color="blue lighten-2"
-//         >
-//           <v-icon>mdi-thumb-up</v-icon>
-//         </v-btn>
-//       </div>
-
-
-//     </v-col>
-//   </v-row>

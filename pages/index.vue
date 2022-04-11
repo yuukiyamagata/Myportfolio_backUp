@@ -24,11 +24,12 @@
                         <v-container fluid>
                           <v-row no-gutters>
                               <v-col cols="6" class="mx-auto">
+                                <v-responsive :aspect-ratio="16/9">
                                   <v-img
                                     :src="required_image"
-                                    class="object-fit"
                                   >
                                   </v-img>
+                                </v-responsive>
                               </v-col>
                             <v-col cols="12">
                               <v-card-title>
@@ -49,9 +50,10 @@
                                 <p class="user-name">@username</p>
                                 </v-col>
 
-                                <v-col cols="9" class="bg-blue">
+                                <v-col cols="9">
                                   <v-card-text class="comment font-weight-medium">
                                     おもしろい。おもしろい。おもしろいおもしろい。おもしろい。おもしろいおもしろい。
+                                    <nuxt-link to="/books/1">続きを読む</nuxt-link>
                                     </v-card-text>
                                 </v-col>
 
@@ -110,10 +112,6 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.object-fit {
-  object-fit: cover;
 }
 
 @media screen and (max-width: 600px){
