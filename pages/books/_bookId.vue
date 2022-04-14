@@ -10,7 +10,7 @@
                   :aspect-ration=16/9
                   >
                     <v-img
-                      :src="image_src"
+                      :src="bookDetailInfo.recommendation_book_imageurl"
                       flat
                       contain
                     >
@@ -18,8 +18,8 @@
                   </v-responsive>
                 </v-col>
                 <v-col cols="12">
-                  <p class="text-center text-sm-h6 text-body-1 font-weight-bold">タイトル</p>
-                  <p class="text-center text-body-2">著者名</p>
+                  <p class="text-center text-sm-h6 text-body-1 font-weight-bold">{{ bookDetailInfo.title }}</p>
+                  <p class="text-center text-body-2">{{ bookDetailInfo.author }}</p>
                 </v-col>
                 <v-divider class="mb-4"></v-divider>
                 <v-col class="text-center">
@@ -61,17 +61,19 @@
                         <v-list-item-avatar
                           size="56"
                           color="primary"
-                        ></v-list-item-avatar>
+                        >
+                        <v-img :src="loginUserInfo.photoURL"></v-img>
+                        </v-list-item-avatar>
 
                         <v-list-item-content>
                           <div class="text-overline mb-4">
-                            @username
+                            @{{ loginUserInfo.userName }}
                           </div>
                         </v-list-item-content>
                       </v-list-item>
 
                     <v-card-text>
-                      Morbi mattis ullamcorper velit. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Fusce convallis metus id felis luctus adipiscing. Aenean massa. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Nulla consequat massa quis enim. Praesent venenatis metus at tortor pulvinar varius. Donec venenatis vulputate lorem. Phasellus accumsan cursus velit. Pellentesque ut neque.
+                      {{ bookDetailInfo.reason }}
                     </v-card-text>
                     <v-card-actions>
                       <v-btn
@@ -112,6 +114,18 @@ export default {
   data(){
     return{
       image_src: require("@/static/book.png"),
+      bookId:''
+    }
+  },
+  created(){
+    this.bookId = this.$route.params.bookId
+  },
+  computed:{
+    bookDetailInfo(){
+      return this.$store.getters['post/recommendationPosts'].find(post => post.recommendation_book_id === this.bookId)
+    },
+    loginUserInfo(){
+      return this.$store.getters['userInfo/loginUserInfo']
     }
   },
   methods:{

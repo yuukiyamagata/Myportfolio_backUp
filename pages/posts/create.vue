@@ -139,7 +139,7 @@
 
 <script>
 import axios from 'axios'
-import { collection, setDoc, doc } from 'firebase/firestore'
+import { collection, setDoc, doc, serverTimestamp } from 'firebase/firestore'
 import { db } from '@/plugins/firebase.js'
 export default {
   data(){
@@ -185,6 +185,7 @@ export default {
     }
   },
   methods:{
+    // 検索結果０件の処理を書く
     async search(){
       if(!this.searchWord){
         alert('検索キーワードを入力してください')
@@ -250,12 +251,14 @@ export default {
           const postRef = doc(collection(db, "post_recommendations"))
           const bookData = {
             title: this.sankousho.title,
-            image_url: this.sankousho.imageUrl,
-            post_id: postRef.id,
-            post_category: this.sankousho.category,
-            post_url:this.sankousho.itemUrl,
+            category: this.sankousho.category,
+            recommendation_book_imageurl: this.sankousho.imageUrl,
+            recommendation_book_id: postRef.id,
+            recommendation_book_url:this.sankousho.itemUrl,
             reason: this.sankousho.reason,
-            author: this.sankousho.author
+            author: this.sankousho.author,
+            created_at: serverTimestamp(),
+            // post_user_uid: ''
           }
           await setDoc(postRef, bookData)
           alert('投稿に成功しました！')

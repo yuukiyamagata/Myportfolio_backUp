@@ -10,8 +10,8 @@
                 <v-container fluid>
                   <v-row>
                     <v-col
-                      v-for="n in 9"
-                      :key="n"
+                      v-for="sankousho in displayLists"
+                      :key="sankousho.recommendation_book_id"
                       cols="8"
                       sm="6"
                       md="4"
@@ -26,17 +26,17 @@
                               <v-col cols="6" class="mx-auto">
                                 <v-responsive :aspect-ratio="16/9">
                                   <v-img
-                                    :src="required_image"
+                                    :src="sankousho.recommendation_book_imageurl"
                                   >
                                   </v-img>
                                 </v-responsive>
                               </v-col>
                             <v-col cols="12">
                               <v-card-title>
-                                Webを支える技術
+                                {{ sankousho.title }}
                               </v-card-title>
                               <v-card-subtitle>
-                                山本陽平(著)
+                                {{ sankousho.author }}
                               </v-card-subtitle>
 
                               <v-divider class="mb-4"></v-divider>
@@ -46,14 +46,15 @@
                                   color="primary"
                                   size="40"
                                 >
+                                <v-img :src="userData.iconURL"></v-img>
                                 </v-avatar>
-                                <p class="user-name">@username</p>
+                                <p class="user-name">@{{ userData.username }}</p>
                                 </v-col>
 
                                 <v-col cols="9">
                                   <v-card-text class="comment font-weight-medium">
-                                    おもしろい。おもしろい。おもしろいおもしろい。おもしろい。おもしろいおもしろい。
-                                    <nuxt-link to="/books/1">続きを読む</nuxt-link>
+                                    {{ sankousho.reason }}
+                                    <nuxt-link :to="`/books/${sankousho.recommendation_book_id }`">続きを読む</nuxt-link>
                                     </v-card-text>
                                 </v-col>
 
@@ -72,8 +73,9 @@
         <v-col class="text-center">
           <v-pagination
             v-model="page"
-            :length="4"
+            :length="length"
             circle
+            @input ="pageChange"
           ></v-pagination>
         </v-col>
       </v-row>
@@ -83,15 +85,55 @@
 </template>
 
 <script>
+import { getDocs, collection, query, orderBy,getDoc,doc } from 'firebase/firestore'
+import  { db } from '@/plugins/firebase'
 export default {
   components: {
     SideMenu: () => import("~/components/base/SideMenu"),
   },
   data(){
+    // sankoushoListsには全てのデータを持たせる
+    // displayListにはブラウザに表示させるデータのみ持たせる
     return{
       page: 1,
-      required_image: require('@/static/book.png')
+      length:0,
+      required_image: require('@/static/book.png'),
+      sankoshoLists:[],
+      displayLists: [],
+      pageSize: 9,
+      userData:'',
     }
+  },
+  async created(){
+    const postRef = collection(db, "post_recommendations")
+    const usersRef = doc(db, "users", "5dOB0RSHBVO5r0rwEDvbeJE4xm53")
+    const q = query(postRef, orderBy("created_at", "desc"));
+    try {
+      // 作成日時順に並べるようにqueryを投げる
+      const querySnapshot = await getDocs(q);
+      this.sankoshoLists = querySnapshot.docs.map(doc => doc.data())
+      console.log( this.sankoshoLists )
+
+      const docSnap = await getDoc(usersRef)
+      this.userData = docSnap.data()
+
+    }catch( e ){
+      console.log( e )
+    }
+    this.length = Math.ceil(this.sankoshoLists.length/this.pageSize);
+    this.displayLists = this.sankoshoLists.slice(this.pageSize*(this.page -1), this.pageSize*(this.page));;
+    this.setPostInfo()
+  },
+  methods:{
+    pageChange( pageNumber ){
+    this.displayLists = this.sankoshoLists.slice(this.pageSize*( pageNumber  -1), this.pageSize*( pageNumber ));
+  },
+  setPostInfo(){
+    this.$store.commit('post/setPostInfo', this.sankoshoLists)
+  },
+  setUserInfo(){
+    this.$store.commit('userInfo/setUserInfo', this.userData)
+  }
   }
 
 }

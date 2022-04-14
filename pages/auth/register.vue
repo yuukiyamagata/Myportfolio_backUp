@@ -43,9 +43,10 @@
           color="primary"
           large
           class="mx-auto mb-4"
-          @click="registerAccoumt"
+          style="text-transform: none"
+          @click="RegisterWithEmailAndPassword"
         >
-        ユーザー情報を登録する
+        EmailとPassWordでユーザー情報を登録する
       </v-btn>
       </v-card-actions>
 
@@ -73,6 +74,7 @@
             class="mb-6"
             color="white"
             style="text-transform: none; width: 85%;"
+            @click="singInWithGoogle"
           >
           <span>
             <v-img
@@ -126,11 +128,21 @@ export default {
     }
   },
   methods:{
-    validata(){
+    validate(){
       this.$refs.form.validate();
     },
-    registerAccoumt(){
-      console.log(this.userName, this.password, this.email)
+    // Emailとパスワードによる新規登録
+    RegisterWithEmailAndPassword() {
+    this.$store.dispatch('auth/RegisterWithEmailAndPassword',
+    {
+      userName: this.userName,
+      email: this.email,
+      password: this.password
+      })
+    },
+    // Googleで新規登録
+    singInWithGoogle(){
+      this.$store.dispatch('auth/signInWithGoogle')
     }
   }
 

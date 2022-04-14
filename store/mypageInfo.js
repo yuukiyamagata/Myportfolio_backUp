@@ -7,7 +7,8 @@ export const state = () => ({
   profileInfo: {
     username: '',
     introduction: '',
-    // twitterURL: ''
+    // twitterURL: '',
+    iconURL: 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'
   },
 })
 

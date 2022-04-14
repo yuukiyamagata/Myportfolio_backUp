@@ -14,7 +14,8 @@ module.exports = {
   rules: {
     "vue/multi-word-component-names": ["error", {
       "ignores": ['index', 'login',  'create', 'edit', 'preview',  'register', 'logout', 'Header', 'Footer', 'loading', '_bookId', 'test', 'like', 'myPage', 'favorite', 'introduce', 'follow', 'follower', 'empty']
-    }]
+    }],
+    "no-restricted-syntax": ["error", "SequenceExpression"]
   },
 }
 

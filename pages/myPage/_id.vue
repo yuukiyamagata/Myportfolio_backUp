@@ -64,6 +64,7 @@
     data(){
       return {
         image_src: require('@/static/TwitterLogo.png'),
+        mypageUid: '',
       }
     },
     computed:{
@@ -76,7 +77,7 @@
     },
     created(){
       // const mypageUid = this.$route.params.mypageUid
-      const  mypageUid = 'TloQ7CdrJp9KliTlYgbd'
+        const mypageUid = 'TloQ7CdrJp9KliTlYgbd'
       // プロフィール情報の取得
       this.$store.dispatch("mypage/getUserInfo", mypageUid)
     },
