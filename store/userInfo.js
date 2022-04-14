@@ -33,7 +33,7 @@ export const mutations = {
   // authのユーザー情報を取得しStateに設定
   setUserInfo(state, userInfo){
     state.user.userUid = userInfo.uid,
-    state.user.userName = userInfo.displayName,
+    state.user.userName = userInfo.userName,
     state.user.photoURL = userInfo.photoURL
     // state.user.emailVerified = userInfo.emailVerified
   },
