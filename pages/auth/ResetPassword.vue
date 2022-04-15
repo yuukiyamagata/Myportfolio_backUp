@@ -1,6 +1,6 @@
 <template>
   <div>
-    Forget Password
+    Reset Password
   </div>
 </template>
 

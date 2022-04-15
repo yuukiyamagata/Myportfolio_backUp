@@ -44,11 +44,11 @@
                                 <v-col cols="3">
                                 <v-avatar
                                   color="primary"
-                                  size="40"
+                                  size="50"
                                 >
-                                <v-img :src="userData.iconURL"></v-img>
+                                <!-- <v-img :src="userData.iconURL"></v-img> -->
                                 </v-avatar>
-                                <p class="user-name">@{{ userData.username }}</p>
+                                <p class="user-name" @click="goToProfile">@山形</p>
                                 </v-col>
 
                                 <v-col cols="9">
@@ -85,8 +85,9 @@
 </template>
 
 <script>
-import { getDocs, collection, query, orderBy,getDoc,doc } from 'firebase/firestore'
+import { getDocs, collection, query, orderBy } from 'firebase/firestore'
 import  { db } from '@/plugins/firebase'
+
 export default {
   components: {
     SideMenu: () => import("~/components/base/SideMenu"),
@@ -101,21 +102,24 @@ export default {
       sankoshoLists:[],
       displayLists: [],
       pageSize: 9,
-      userData:'',
+      userData:[],
     }
   },
   async created(){
     const postRef = collection(db, "post_recommendations")
-    const usersRef = doc(db, "users", "5dOB0RSHBVO5r0rwEDvbeJE4xm53")
-    const q = query(postRef, orderBy("created_at", "desc"));
+    // const usersRef = doc(db, "users", "5dOB0RSHBVO5r0rwEDvbeJE4xm53")
+    const postQuery = query(postRef, orderBy("created_at", "desc"));
     try {
       // 作成日時順に並べるようにqueryを投げる
-      const querySnapshot = await getDocs(q);
-      this.sankoshoLists = querySnapshot.docs.map(doc => doc.data())
-      console.log( this.sankoshoLists )
+      const querySnapshot = await getDocs(postQuery);
+      querySnapshot.forEach(doc => {
+        this.sankoshoLists.push({
+          ...doc.data()
+        })
+      })
 
-      const docSnap = await getDoc(usersRef)
-      this.userData = docSnap.data()
+      // const docSnap = await getDoc(usersRef)
+      // this.userData = docSnap.data()
 
     }catch( e ){
       console.log( e )
@@ -133,6 +137,9 @@ export default {
   },
   setUserInfo(){
     this.$store.commit('userInfo/setUserInfo', this.userData)
+  },
+  goToProfile(){
+    console.log('go')
   }
   }
 
