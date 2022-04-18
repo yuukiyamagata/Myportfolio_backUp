@@ -1,6 +1,6 @@
 <template>
     <v-container class="mt-12 mb-12 bg-main" fluid>
-    <v-row no-gutters class="d-flex justify-space-between mb-10">
+    <v-row noGutters class="d-flex justify-space-between mb-10">
       <!-- サイズが小さい時display: none -->
         <v-col cols="12" sm="12" md="2">
               <SideMenu class="mt-10 mb-10" />
@@ -19,12 +19,12 @@
                     >
                       <v-card
                         color="grey lighten-5"
-                        max-width="300px"
+                        maxWidth="300px"
                         >
                         <v-container fluid>
-                          <v-row no-gutters>
+                          <v-row noGutters>
                               <v-col cols="6" class="mx-auto">
-                                <v-responsive :aspect-ratio="16/9">
+                                <v-responsive :aspectRatio="16/9">
                                   <v-img
                                     :src="sankousho.recommendation_book_imageurl"
                                   >
@@ -46,9 +46,9 @@
                                   color="primary"
                                   size="50"
                                 >
-                                <!-- <v-img :src="userData.iconURL"></v-img> -->
+                                <v-img :src="sankousho.iconURL"></v-img>
                                 </v-avatar>
-                                <p class="user-name" @click="goToProfile">@山形</p>
+                                <p class="user-name" @click="goToProfile">@{{ sankousho.post_user_name }}</p>
                                 </v-col>
 
                                 <v-col cols="9">
@@ -98,7 +98,6 @@ export default {
     return{
       page: 1,
       length:0,
-      required_image: require('@/static/book.png'),
       sankoshoLists:[],
       displayLists: [],
       pageSize: 9,
@@ -107,7 +106,6 @@ export default {
   },
   async created(){
     const postRef = collection(db, "post_recommendations")
-    // const usersRef = doc(db, "users", "5dOB0RSHBVO5r0rwEDvbeJE4xm53")
     const postQuery = query(postRef, orderBy("created_at", "desc"));
     try {
       // 作成日時順に並べるようにqueryを投げる
@@ -117,9 +115,6 @@ export default {
           ...doc.data()
         })
       })
-
-      // const docSnap = await getDoc(usersRef)
-      // this.userData = docSnap.data()
 
     }catch( e ){
       console.log( e )

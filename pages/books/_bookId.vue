@@ -62,12 +62,12 @@
                           size="56"
                           color="primary"
                         >
-                        <v-img :src="loginUserInfo.photoURL"></v-img>
+                        <v-img :src="bookDetailInfo.iconURL"></v-img>
                         </v-list-item-avatar>
 
                         <v-list-item-content>
                           <div class="text-overline mb-4">
-                            @{{ loginUserInfo.userName }}
+                            @{{ bookDetailInfo.post_user_name }}
                           </div>
                         </v-list-item-content>
                       </v-list-item>
@@ -113,7 +113,6 @@
 export default {
   data(){
     return{
-      image_src: require("@/static/book.png"),
       bookId:''
     }
   },
@@ -132,6 +131,11 @@ export default {
     confirm(){
       const result = window.confirm('お気に入りに登録しますか?')
       if(!result) return // eslint-disable-line
+      const postInfo ={
+        bookId:  this.bookDetailInfo.recommendation_book_id,
+        userName: this.bookDetailInfo.post_user_name
+      }
+      this.$store.dispatch('post/createFavorite', postInfo)
     }
   }
 }

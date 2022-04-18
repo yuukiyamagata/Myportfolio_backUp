@@ -1,4 +1,6 @@
 <template>
+  <div>
+    <Loading :isLoading="isLoading" />
   <v-card
     class="mx-auto text-center my-12"
     max-width="384"
@@ -100,10 +102,15 @@
 
     </v-form>
   </v-card>
+</div>
 </template>
 
 <script>
+import  Loading  from '@/components/Loading'
 export default {
+  components:{
+    Loading
+  },
   layout: 'empty',
   data(){
     return {
@@ -115,6 +122,7 @@ export default {
       password:'',
       isShow: false,
       valid: false,
+      isLoading: true,
       nameRules: [
         (v) => !!v || "user name is required",
         (v) => (v && v.length <= 30) || "最大30文字です。",
@@ -127,8 +135,14 @@ export default {
         v => /^[\w-]{8,72}$/.test(v) || '半角英数字8文字以上'],
     }
   },
+  created(){
+    setTimeout(() => {
+      this.isLoading = false
+      this.$router.push('/')
+    }, 5000);
+  },
   methods:{
-    validate(){
+    validate() {
       this.$refs.form.validate();
     },
     // Emailとパスワードによる新規登録

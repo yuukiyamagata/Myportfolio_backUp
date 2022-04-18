@@ -1,9 +1,11 @@
 <template>
+<div>
+  <Loading :isLoading="isLoading" />
   <v-card
     class="mx-auto text-center flat my-12"
     max-width="384"
     color="#fff"
-  >
+    >
   <v-card-title class="bg-color pa-0">
     <p class="text-center mx-auto pt-4 font-weight-black">ログイン</p>
   </v-card-title>
@@ -21,7 +23,7 @@
         label="パスワード"
         @click:append="showPassword = !showPassword" />
       <v-card-actions>
-        <v-btn block class="primary" @click="submit">ログイン</v-btn>
+        <v-btn block class="primary" @click="loginWithEmailAndPassword">ログイン</v-btn>
       </v-card-actions>
       <nuxt-link to="/auth/forgetPassword" class="d-block">パスワードお忘れの方はこちら</nuxt-link>
     </v-form>
@@ -51,6 +53,7 @@
       class="mb-6"
       color="white"
       style="text-transform: none; width: 85%;"
+      @click="loginWithGoogle"
     >
     <span>
       <v-img
@@ -65,30 +68,43 @@
   </v-form>
   </v-card>
 
+  </div>
 </template>
 
+
+
 <script>
+import  Loading  from '@/components/Loading'
 export default {
+  components:{
+    Loading,
+  },
   layout: 'empty',
-  data(){
+    data(){
     return {
       showPassword: false,
       userName: '',
       password: '',
       image_src_google: require('@/static/GoogleLogo.png'),
-      image_src_twitter: require('@/static/TwitterLogo.png')
+      image_src_twitter: require('@/static/TwitterLogo.png'),
+      isLoading: true,
     }
   },
+  created(){
+    setTimeout(() => {
+      this.isLoading = false
+      this.$router.push('/')
+    }, 5000);
+  },
   methods: {
-    submit(){
-      console.log('submit')
+    loginWithEmailAndPassword() {
+      this.$store.dispatch('auth/logInWithEmailAndPassword',{email: this.email, password: this.password})
+    },
+    loginWithGoogle() {
+      this.$store.dispatch('auth/singInWithGoogle')
     }
   }
 
 }
 </script>
 
-<style>
-
-
-</style>

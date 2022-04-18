@@ -1,6 +1,6 @@
 <template>
   <div>
-    
+    post Preview
   </div>
 </template>
 

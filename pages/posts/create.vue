@@ -18,7 +18,7 @@
                 label="参考書の検索"
                 placeholder="検索ワードを入力してください"
                 dense
-                append-icon="mdi-magnify"
+                appendIcon="mdi-magnify"
               >
               </v-text-field>
             </v-col>
@@ -92,7 +92,7 @@
               cols="12">
                   <v-card
                     class="mx-auto"
-                    max-width="280"
+                    maxWidth="280"
                     align="center"
                     >
                   <div>
@@ -184,6 +184,11 @@ export default {
         dialog: false,
     }
   },
+  created(){
+    // ここでログインユーザのIDを取得する
+    // まずログインしているのかどうか
+    // ログインユーザーのデータをstoreから取ってくる
+  },
   methods:{
     // 検索結果０件の処理を書く
     async search(){
@@ -256,9 +261,11 @@ export default {
             recommendation_book_id: postRef.id,
             recommendation_book_url:this.sankousho.itemUrl,
             reason: this.sankousho.reason,
-            author: this.sankousho.author,
+            book_author: this.sankousho.author,
             created_at: serverTimestamp(),
-            // post_user_uid: ''
+            post_user_name: 'Yuuki',
+            post_user_uid: '5dOB0RSHBVO5r0rwEDvbeJE4xm53',
+            iconURL: 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'
           }
           await setDoc(postRef, bookData)
           alert('投稿に成功しました！')

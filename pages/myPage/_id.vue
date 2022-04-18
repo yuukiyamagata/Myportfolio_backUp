@@ -79,7 +79,7 @@
       // const mypageUid = this.$route.params.mypageUid
         const mypageUid = 'TloQ7CdrJp9KliTlYgbd'
       // プロフィール情報の取得
-      this.$store.dispatch("mypage/getUserInfo", mypageUid)
+      this.$store.dispatch("mypageInfo/getUserInfo", mypageUid)
     },
     methods:{
 
