@@ -3,7 +3,7 @@
   <Loading :isLoading="isLoading" />
   <v-card
     class="mx-auto text-center flat my-12"
-    max-width="384"
+    maxWidth="384"
     color="#fff"
     >
   <v-card-title class="bg-color pa-0">
@@ -12,18 +12,18 @@
   <v-card-text>
     <v-form>
       <v-text-field
-        v-model="userName"
-        prepend-icon="mdi-account-circle"
-        label="ユーザー名" />
+        v-model="email"
+        prependIcon="mdi-email"
+        label="メールアドレス" />
       <v-text-field
         v-model="password"
         :type="showPassword ? 'text' : 'password'"
-        prepend-icon="mdi-lock"
-        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+        prependIcon="mdi-lock"
+        :appendIcon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
         label="パスワード"
         @click:append="showPassword = !showPassword" />
       <v-card-actions>
-        <v-btn block class="primary" @click="loginWithEmailAndPassword">ログイン</v-btn>
+        <v-btn block class="primary" @click="login">ログイン</v-btn>
       </v-card-actions>
       <nuxt-link to="/auth/forgetPassword" class="d-block">パスワードお忘れの方はこちら</nuxt-link>
     </v-form>
@@ -83,22 +83,17 @@ export default {
     data(){
     return {
       showPassword: false,
-      userName: '',
+      email: '',
       password: '',
       image_src_google: require('@/static/GoogleLogo.png'),
       image_src_twitter: require('@/static/TwitterLogo.png'),
-      isLoading: true,
+      isLoading: false,
     }
   },
-  created(){
-    setTimeout(() => {
-      this.isLoading = false
-      this.$router.push('/')
-    }, 5000);
-  },
   methods: {
-    loginWithEmailAndPassword() {
-      this.$store.dispatch('auth/logInWithEmailAndPassword',{email: this.email, password: this.password})
+    login() {
+      this.isLoading = true
+      this.$store.dispatch('auth/login',{email: this.email, password: this.password})
     },
     loginWithGoogle() {
       this.$store.dispatch('auth/singInWithGoogle')

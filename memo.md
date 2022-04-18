@@ -14,13 +14,7 @@ https://www.youtube.com/watch?v=LrhYbXOGLZo&t=212s&ab_channel=%E3%83%97%E3%83%AD
 ## やること
 Index画面のハートアイコン
 ログイン時に既にログイン済みならどうするか
-  アカウント登録の時にLoading画面へうつすか？
-   例) //ローディン画面へ画面遷移
-    this.$router.push('InLoading')
-    あるいはコンポーネントをだすか？
-    true/falseで条件分岐 v-showでだしわけ
 
-ログインの時のローディングアイコン
 
 
 onAuthStateChanged

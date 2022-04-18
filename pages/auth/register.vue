@@ -3,7 +3,7 @@
     <Loading :isLoading="isLoading" />
   <v-card
     class="mx-auto text-center my-12"
-    max-width="384"
+    maxWidth="384"
     >
       <v-img
       class="mx-auto"
@@ -36,7 +36,7 @@
         placeholder="半角英数字8以上"
         :type="isShow ? 'text' : 'password'"
         :rules="passwordRules"
-        :append-icon="isShow ? 'mdi-eye' : 'mdi-eye-off'"
+        :appendIcon="isShow ? 'mdi-eye' : 'mdi-eye-off'"
         @click:append="isShow = !isShow"
       />
     </v-card-text>
@@ -122,7 +122,7 @@ export default {
       password:'',
       isShow: false,
       valid: false,
-      isLoading: true,
+      isLoading: false,
       nameRules: [
         (v) => !!v || "user name is required",
         (v) => (v && v.length <= 30) || "最大30文字です。",
@@ -135,18 +135,13 @@ export default {
         v => /^[\w-]{8,72}$/.test(v) || '半角英数字8文字以上'],
     }
   },
-  created(){
-    setTimeout(() => {
-      this.isLoading = false
-      this.$router.push('/')
-    }, 5000);
-  },
   methods:{
     validate() {
       this.$refs.form.validate();
     },
     // Emailとパスワードによる新規登録
     RegisterWithEmailAndPassword() {
+    this.isLoading = true
     this.$store.dispatch('auth/RegisterWithEmailAndPassword',
     {
       userName: this.userName,
@@ -165,9 +160,7 @@ export default {
 
 <style scoped>
 
-.link {
-  text-decoration: none;
-}
+
 
 .twitter-icon-color {
   color: rgba(29,161,242);

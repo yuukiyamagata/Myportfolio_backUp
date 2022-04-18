@@ -1,14 +1,14 @@
 <template>
-  <v-app-bar app class="white" clipped-left elevation="1">
+  <v-app-bar app class="white" clippedLeft elevation="1">
     <header @click="$router.push('/')">
         <img :src="img_src" class="logo">
         <v-toolbar-title class="header-title">SANKOUSYO LABO</v-toolbar-title>
     </header>
     <v-spacer></v-spacer>
 
-  <!-- 非ログイン時にこちら -->
-    <!-- <nuxt-link to="/auth/login" class="link-border-line-none">
-        <span v-if="isAuth">
+  <!-- 非ログイン -->
+    <nuxt-link to="/auth/login" class="link-border-line-none">
+        <span v-if="!isLoggedIn">
           <v-btn
             outlined
             color="indigo"
@@ -18,7 +18,7 @@
         </span>
     </nuxt-link>
     <nuxt-link to="/auth/register" class="link-border-line-none">
-        <span v-if="isAuth">
+        <span v-if="!isLoggedIn">
           <v-btn
             outlined
             color="red"
@@ -26,15 +26,14 @@
               新規登録
           </v-btn>
         </span>
-    </nuxt-link> -->
+    </nuxt-link>
 
     <!-- ログイン時 -->
-    <div v-if="isAuth">
-      <v-menu offset-y>
+    <div v-if="isLoggedIn">
+      <v-menu offsetY>
         <template #activator="{on}">
           <v-avatar color="orange" size="53" v-on="on">
-            <span class="white--text">祐樹</span>
-            <!-- <v-img :src="iconURl"></v-img> -->
+            <v-img :src="iconURL"></v-img>
           </v-avatar>
         </template>
         <v-list>
@@ -97,6 +96,21 @@ export default {
           action: 'logout'
         },
       ]
+    }
+  },
+  created(){
+    const isLoggedIn = this.$store.getters['auth/isLoggedIn']
+    if(isLoggedIn){
+      const currentUserUid = this.$store.getters['userInfo/user'].userUid
+      console.log( currentUserUid )
+    }
+  },
+  computed:{
+    isLoggedIn(){
+      return this.$store.getters['auth/isLoggedIn']
+    },
+    iconURL(){
+      return this.$store.getters['userInfo/loginUserInfo'].iconURL
     }
   },
   methods:{

@@ -34,20 +34,20 @@ export const actions = {
 
         // 確証メール送信
         await sendEmailVerification(auth.currentUser)
-        .then(() => alert('確証メールを送信しました'))
+        .then(() => alert('確証メールを送信しました。メールボックスをご確認ください'))
+        .then(() => this.$router.push('/'))
 
         // 初回ログインの確認
         const isNewUser = getAdditionalUserInfo(userCredentail).isNewUser
 
         await updateProfile(userCredentail.user, {
           displayName: userName,
-          photoURL: "https://example.com/jane-q-user/profile.jpg"
+          photoURL: "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
         })
         .then(() => {
           dispatch('userInfo/setUserInfo', userCredentail.user, { root: true })
             // ユーザーデータをUsersコレクションに格納する。
             dispatch('userInfo/storeUser', isNewUser, { root: true })
-            console.log(userCredentail.user)
           })
           .catch(e => console.log(e))
 
@@ -76,11 +76,11 @@ export const actions = {
         }
       },
 
-        async login( { commit }, { email, password}) {
+        async login( { commit, dispatch }, { email, password}) {
           await signInWithEmailAndPassword(auth, email, password)
           .then( userCredential => {
             commit('setLoginState', true)
-            commit('setUserUid', userCredential.user.uid)
+            dispatch('userInfo/fetchUserInfo', null, { root: true})
             alert('ログインしました')
             this.$router.push('/')
           })
