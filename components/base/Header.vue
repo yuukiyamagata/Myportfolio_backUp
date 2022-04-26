@@ -74,6 +74,7 @@
 </template>
 
 <script>
+import {auth } from "@/plugins/firebase"
 export default {
   data() {
     return {
@@ -98,13 +99,6 @@ export default {
       ]
     }
   },
-  created(){
-    const isLoggedIn = this.$store.getters['auth/isLoggedIn']
-    if(isLoggedIn){
-      const currentUserUid = this.$store.getters['userInfo/user'].userUid
-      console.log( currentUserUid )
-    }
-  },
   computed:{
     isLoggedIn(){
       return this.$store.getters['auth/isLoggedIn']
@@ -113,10 +107,17 @@ export default {
       return this.$store.getters['userInfo/loginUserInfo'].iconURL
     }
   },
+  created(){
+    const isLoggedIn = this.$store.getters['auth/isLoggedIn']
+    if(isLoggedIn){
+      const currentUserUid = this.$store.getters['userInfo/user'].userUid
+      console.log( currentUserUid )
+    }
+  },
   methods:{
     menuClick(action){
 
-      if(action === 'logput'){
+      if(action === 'logout'){
         const message = 'ログアウトしますか？'
         const result = confirm(message)
         if(!result) return // eslit-disable-line;
@@ -124,7 +125,14 @@ export default {
         }
 
         if(action === 'goToMyPage'){
-          this.$router.push('/myPage/1')
+          const uid = auth.currentUser.uid
+          // const user = auth.currentUser
+          // if(user.emailVerified == true){
+          // }
+          this.$router.push(`/mypage/${uid}`)
+        }else {
+          // eslint-disable-next-line no-useless-return
+          return
         }
 
     },

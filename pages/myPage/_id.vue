@@ -69,23 +69,21 @@
     },
     computed:{
       userName(){
-        return this.$store.getters["mypage/profileInfo"].username
+        return this.$store.getters["mypageInfo/profileInfo"].username
       },
       introduction(){
-        return this.$store.getters["mypage/profileInfo"].introduction
+        return this.$store.getters["mypageInfo/profileInfo"].introduction
       }
     },
     created(){
-      // const mypageUid = this.$route.params.mypageUid
-        const mypageUid = 'TloQ7CdrJp9KliTlYgbd'
+      this.mypageUid = this.$route.params.id
       // プロフィール情報の取得
-      this.$store.dispatch("mypageInfo/getUserInfo", mypageUid)
+      this.$store.dispatch("mypageInfo/getUserInfo", this.mypageUid)
     },
     methods:{
-
       // タブメニューリファクタリング
       goToEditMypage(){
-        this.$router.push(`/mypage/mypageEdit/${this.mypageUid}`)
+        this.$router.push(`/myPage/mypageEdit/${this.mypageUid}`)
       },
       goToHome(){
         this.$router.push(`/mypage/${this.mypageUid}`)

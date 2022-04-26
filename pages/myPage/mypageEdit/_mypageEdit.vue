@@ -81,18 +81,18 @@ export default {
       myPageInfo:{
         userName:'',
         introduction: '',
-        // iconURL: ''
-        // twitterURl
+        // iconURL: '',
+        twitterURl: '',
       },
     }
   },
   created(){
     const uid = this.$route.params.myPageEdit
     this.uid = uid
-    this.myPageInfo.userName = this.$store.getters['mypage/profileInfo'].username
-    this.myPageInfo.introduction = this.$store.getters['mypage/profileInfo'].introduction
-    // this.mypageInfo.iconImage = this.$store.getters['mypage/profileInfo'].iconURL
-    // this.myPageInfo.twitterURL = this.$store.getters['mypage/profileInfo'].twitterURL
+    this.myPageInfo.userName = this.$store.getters['mypageInfo/profileInfo'].username
+    this.myPageInfo.introduction = this.$store.getters['mypageInfo/profileInfo'].introduction
+    // this.mypageInfo.iconURL = this.$store.getters['mypageInfo/profileInfo'].iconURL
+    this.myPageInfo.twitterURL = this.$store.getters['mypageInfo/profileInfo'].twitterURL
   },
   methods:{
     back(){
@@ -100,7 +100,7 @@ export default {
     },
     saveEditProfile(){
       this.$store.dispatch('mypage/editMyPage', this.myPageInfo)
-      
+
       alert('プロフィールを保存しました')
       this.$router.push(`/myPage/${this.uid}`)
     }

@@ -92,7 +92,7 @@ export default {
   },
   methods: {
     login() {
-      this.isLoading = true
+      // this.isLoading = true
       this.$store.dispatch('auth/login',{email: this.email, password: this.password})
     },
     loginWithGoogle() {

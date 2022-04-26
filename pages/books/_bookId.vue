@@ -7,7 +7,7 @@
             <v-row class="d-flex flex-column mb-6">
                 <v-col cols="11" class="ml-auto">
                   <v-responsive
-                  :aspect-ration=16/9
+                  :aspectRation=16/9
                   >
                     <v-img
                       :src="bookDetailInfo.recommendation_book_imageurl"
@@ -24,12 +24,12 @@
                 <v-divider class="mb-4"></v-divider>
                 <v-col class="text-center">
                     <v-menu
-                      open-on-hover
+                      openOnHover
                       top
-                      offset-y
+                      offsetY
                     >
                   <template #activator="{ on, attrs }">
-                      <v-icon color="grey lighten-1" v-bind="attrs" v-on="on" size="30">
+                      <v-icon color="grey lighten-1" v-bind="attrs" size="30" v-on="on">
                         mdi-cart
                       </v-icon>
                       <span class="d-block">購入</span>
@@ -57,7 +57,7 @@
                     elevation="0"
                     class="mx-auto"
                     >
-                    <v-list-item three-line>
+                    <v-list-item threeLine>
                         <v-list-item-avatar
                           size="56"
                           color="primary"
@@ -80,6 +80,7 @@
                         text
                         color="indigo accent-4"
                         class="mb-4"
+                        @click="$router.push('/')"
                       >
                         一覧へ戻る
                       </v-btn>
@@ -109,15 +110,17 @@
 
 </template>
 
+
+
 <script>
+import { collection, addDoc  } from "firebase/firestore"
+import { db, auth } from "@/plugins/firebase"
 export default {
   data(){
     return{
-      bookId:''
+      bookId:'',
+      isRegistered: false,
     }
-  },
-  created(){
-    this.bookId = this.$route.params.bookId
   },
   computed:{
     bookDetailInfo(){
@@ -127,17 +130,29 @@ export default {
       return this.$store.getters['userInfo/loginUserInfo']
     }
   },
+  created(){
+    this.bookId = this.$route.params.bookId
+  },
   methods:{
-    confirm(){
+    async confirm(){
       const result = window.confirm('お気に入りに登録しますか?')
       if(!result) return // eslint-disable-line
       const postInfo ={
         bookId:  this.bookDetailInfo.recommendation_book_id,
-        userName: this.bookDetailInfo.post_user_name
+        bookTitle: this.bookDetailInfo.title,
+        bookImageUrl: this.bookDetailInfo.recommendation_book_imageurl
       }
-      this.$store.dispatch('post/createFavorite', postInfo)
+    // すでにお気に入りした記事かどうか調べる必要がある
+    const user = auth.currentUser
+    const favoritePostRef =  collection(db, 'users', user.uid, 'favorite_posts')
+    try {
+      await addDoc(favoritePostRef, postInfo)
+      alert('お気に入りに登録しました')
+    }catch( e ){
+      console.log( e )
     }
   }
+}
 }
 </script>
 

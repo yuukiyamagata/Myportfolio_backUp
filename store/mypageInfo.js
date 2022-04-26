@@ -18,7 +18,9 @@ export const getters = {
 
 export const mutations = {
   setUserInfo(state, profileInfo) {
-    state.profileInfo = profileInfo
+    state.profileInfo.username = profileInfo.username;
+    state.profileInfo.introduction = profileInfo.introduction;
+    state.profileInfo.iconURL = profileInfo.iconURL;
   },
 
   }
@@ -27,9 +29,10 @@ export const mutations = {
 export const actions = {
   async getUserInfo({ commit }, uid) {
     try {
-      const docRef = doc(db, "Users", uid);
+      const docRef = doc(db, "users", uid);
       const docSnap = await getDoc(docRef)
       commit('setUserInfo', docSnap.data())
+      console.log( docSnap.data() )
     } catch(error) {
       console.error( error )
     }
