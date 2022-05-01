@@ -32,7 +32,6 @@ export default {
   plugins: [
     '@/plugins/firebase',
     '@/plugins/vuexpersisted',
-    '@/plugins/auth'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

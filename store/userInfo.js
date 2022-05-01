@@ -3,7 +3,6 @@ import {
         doc,
         serverTimestamp,
         getDoc
-        // getDocs,
       }from 'firebase/firestore'
 import { db } from '@/plugins/firebase'
 
@@ -69,15 +68,13 @@ export const actions = {
       if (isNewUser) {
         // 初回ログインの場合の分岐
         const userDocRef =  doc(db, 'users', userUid)
+        // eslint-disable-next-line no-unused-vars
         const documentRef = await setDoc(userDocRef, {
           userName: getters.user.userName,
           iconURL: getters.user.iconURL,
           uid: userUid,
           created_at: serverTimestamp()
           })
-
-          console.log(documentRef) // eslint-disable-line
-
           dispatch('fetchUserInfo')
         }else{
           dispatch('fetchUserInfo')
@@ -86,7 +83,6 @@ export const actions = {
     }catch(error){
         console.error( error.message ) // eslint-disable-line
         throw new Error("ログインに失敗しました")
-
       }
     },
     async fetchUserInfo({ getters, commit }) {
@@ -94,7 +90,6 @@ export const actions = {
       try {
         const docRef = doc(db, 'users', userUid)
         const docSnap = await getDoc(docRef)
-        console.log( docSnap.data() )
         commit('fetchUserInfo', docSnap.data())
       } catch(error) {
           console.log(error)

@@ -58,7 +58,7 @@ export const actions = {
             }
           }
       },
-      async signInWithGoogle({ dispatch }){
+      async signInWithGoogle({ dispatch, commit }){
         const provider = new GoogleAuthProvider();
         try {
             const result = await signInWithPopup(auth, provider)
@@ -66,6 +66,7 @@ export const actions = {
             dispatch('userInfo/setUserInfo', result.user, { root: true})
             dispatch('userInfo/createUser', isNewUser, { root: true })
             alert('Googleのサインインに成功しました')
+            commit('setLoginState', true)
             this.$router.push('/')
         }catch(error){
             const credential = GoogleAuthProvider.credentialFromError(error);
