@@ -1,12 +1,11 @@
-// import createPersistedState from 'vuex-persistedstate'
+import createPersistedState from 'vuex-persistedstate'
 
-// export default ({ store }) => {
-//   createPersistedState({
-//     key: 'sankousho-labo'
-//   })(store)
-// }
+export default ({ store }) => {
+  createPersistedState({
+    key: 'sankousho-labo'
+  })(store)
+}
 
-// Pliginsに入れる
 
 // keyはストレージに保存する時のプロパティ名
 
