@@ -79,7 +79,6 @@ export default {
   data() {
     return {
       img_src: require('@/static/logo.png'),
-      isAuth: true,
       menus:[
         {
           name: 'HOME',

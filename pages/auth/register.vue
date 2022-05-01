@@ -33,6 +33,7 @@
       <v-text-field
         v-model="password"
         label="パスワード"
+        autocomplete="off"
         placeholder="半角英数字8以上"
         :type="isShow ? 'text' : 'password'"
         :rules="passwordRules"

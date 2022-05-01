@@ -5,7 +5,7 @@ import { db } from '@/plugins/firebase.js'
 
 export const state = () => ({
   profileInfo: {
-    username: '',
+    userName: '',
     introduction: '',
     // twitterURL: '',
     iconURL: 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg'
@@ -18,7 +18,7 @@ export const getters = {
 
 export const mutations = {
   setUserInfo(state, profileInfo) {
-    state.profileInfo.username = profileInfo.username;
+    state.profileInfo.username = profileInfo.userName;
     state.profileInfo.introduction = profileInfo.introduction;
     state.profileInfo.iconURL = profileInfo.iconURL;
   },

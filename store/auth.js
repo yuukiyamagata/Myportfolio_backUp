@@ -30,29 +30,26 @@ export const actions = {
   async RegisterWithEmailAndPassword({ dispatch }, { userName, email, password }) {
 
     try {
-        const userCredentail = await createUserWithEmailAndPassword(auth, email, password)
-
-        // 確証メール送信
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password)
         await sendEmailVerification(auth.currentUser)
         .then(() => alert('確証メールを送信しました。メールボックスをご確認ください'))
         .then(() => this.$router.push('/'))
-
         // 初回ログインの確認
-        const isNewUser = getAdditionalUserInfo(userCredentail).isNewUser
+        const isNewUser = getAdditionalUserInfo(userCredential).isNewUser
 
-        await updateProfile(userCredentail.user, {
+        await updateProfile(userCredential.user, {
           displayName: userName,
           photoURL: "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
         })
         .then(() => {
-          dispatch('userInfo/setUserInfo', userCredentail.user, { root: true })
+          dispatch('userInfo/setUserInfo', userCredential.user, { root: true })
             // ユーザーデータをUsersコレクションに格納する。
-            dispatch('userInfo/storeUser', isNewUser, { root: true })
+            dispatch('userInfo/createUser', isNewUser, { root: true })
           })
-          .catch(e => console.log(e))
+          .catch(e => console.log(e) ) // eslint-disable-line
 
           }catch(error){
-            console.log({ 'code': error.code, 'message': error.message })
+            console.log({ 'code': error.code, 'message': error.message }) // eslint-disable-line
             if (error.code === "auth/email-already-in-use") {
               // dispatch('errorEmail')
               alert('既にメールアドレスが使用されています')
@@ -65,13 +62,14 @@ export const actions = {
         const provider = new GoogleAuthProvider();
         try {
             const result = await signInWithPopup(auth, provider)
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const isNewUser = getAdditionalUserInfo(credential).isNewUser
-            dispatch('userInfo/storeUser', isNewUser, { root: true })
+            const isNewUser = getAdditionalUserInfo(result).isNewUser;
+            dispatch('userInfo/setUserInfo', result.user, { root: true})
+            dispatch('userInfo/createUser', isNewUser, { root: true })
             alert('Googleのサインインに成功しました')
+            this.$router.push('/')
         }catch(error){
             const credential = GoogleAuthProvider.credentialFromError(error);
-            console.log({ 'code': error.code, 'message': error.message, credential })
+            console.log({ 'code': error.code, 'message': error.message, credential }) // eslint-disable-line
             alert('ログインに失敗しました')
         }
       },
@@ -104,7 +102,7 @@ export const actions = {
           commit('myPageInfo.js/logoutReset', null, { root: true })
         })
         .catch(e => {
-          console.log(e)
+          console.log(e) // eslint-disable-line
         })
           alert('ログアウトしました')
           this.$router.push('/')

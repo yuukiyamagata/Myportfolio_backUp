@@ -69,7 +69,7 @@
     },
     computed:{
       userName(){
-        return this.$store.getters["mypageInfo/profileInfo"].username
+        return this.$store.getters["mypageInfo/profileInfo"].userName
       },
       introduction(){
         return this.$store.getters["mypageInfo/profileInfo"].introduction

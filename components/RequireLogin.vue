@@ -6,14 +6,14 @@
         transition="dialog-top-transition"
         max-width="600"
       >
-        <template v-slot:activator="{ on, attrs }">
+        <template #activator="{ on, attrs }">
           <v-btn
             color="primary"
             v-bind="attrs"
             v-on="on"
           >From the top</v-btn>
         </template>
-        <template v-slot:default="dialog">
+        <template #default="dialog">
           <v-card>
             <v-toolbar
               color="primary"

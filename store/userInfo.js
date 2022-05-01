@@ -62,7 +62,7 @@ export const actions = {
   },
   // stateのUserをfirestoreのUsersコレクションに格納する。
   // user.userUidはAuthIdとする
-  async storeUser({ getters, dispatch }, isNewUser) {
+  async createUser({ getters, dispatch }, isNewUser) {
     const userUid = getters.user.userUid
     try {
 
@@ -70,13 +70,13 @@ export const actions = {
         // 初回ログインの場合の分岐
         const userDocRef =  doc(db, 'users', userUid)
         const documentRef = await setDoc(userDocRef, {
-          username: getters.user.userName,
+          userName: getters.user.userName,
           iconURL: getters.user.iconURL,
           uid: userUid,
           created_at: serverTimestamp()
           })
 
-          console.log(documentRef)
+          console.log(documentRef) // eslint-disable-line
 
           dispatch('fetchUserInfo')
         }else{
@@ -84,7 +84,8 @@ export const actions = {
           }
 
     }catch(error){
-        console.log(error)
+        console.error( error.message ) // eslint-disable-line
+        throw new Error("ログインに失敗しました")
 
       }
     },
