@@ -10,7 +10,7 @@
           </div>
         </div>
       </div>
-      <div class="image-contaienr">
+      <div class="image-container">
         <img
         width="300"
         height="300"
@@ -37,15 +37,20 @@
     <section id="howToPost" class="howToPost">
       <h1>投稿の仕方</h1>
       <div class="howToPost__contents">
-        <p>アカウント作成終了後、ログインをしたのち画面右上の投稿するのボタンをクリックします。ボタンをクリックすると参考書投稿画面に移動します。<span style="color: red">以下の必須項目を入力し</span>投稿ボタンを押すと投稿されます。</p>
+        <p>
+          アカウント作成終了後、ログインをしたのち画面右上の投稿するボタンをクリックします。
+        </p>
+        <p>
+          投稿フォームに<span style="color: red">以下の必須項目を入力し</span>投稿ボタンを押すと投稿されます。
+        </p>
 
-        <ol>
-          <li>参考書タイトル(文字数制限 40文字)</li>
-          <li>著者・出版社名(いずれかを入力。文字数制限 20文字)</li>
-          <li>参考書おすすめ理由(文字数制限 300文字)</li>
-          <li>カテゴリー(数学・英語・理科・社会・現代文の中から参考書のカテゴリーを選択します)</li>
+        <ul>
+          <li>参考書タイトル(40文字以内)</li>
+          <li>著者・出版社名(いずれかを入力。20文字以内)</li>
+          <li>参考書おすすめ理由(300文字以内)</li>
+          <li>カテゴリー選択(数学・英語・理科・社会・現代文)</li>
           <li class="font-weight-bold">※おすすめの使い方: 参考書検索欄にキーワードを入力すると、そのキーワードに一致した検索結果が表示され、その項目を選択すると必須項目の入力が自動で行われます</li>
-        </ol>
+        </ul>
 
       </div>
       </section>
@@ -68,20 +73,39 @@
   margin: 0 auto;
 }
 
-ol li {
-  line-height: 1.5rem;
+  ul {
+  list-style-type: none;
+
+  & li {
+      padding: 4px;
+      position: relative;
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: .5em;
+      left: -1.5em;
+      width: 10px;
+      height: 5px;
+      border-left: 2px solid #25AF01;
+      border-bottom: 2px solid #25AF01;
+      transform: rotate(-45deg);
+    }
+  }
 }
+
 
 .btn {
   width: 200px;
   height: 50px;
-  border: 1px solid red;
+  border: 1px solid teal;
   text-align: center;
   margin: 24px auto;
   padding: 8px 0;
   border-radius: 7px;
   cursor: pointer;
-  color: red;
+  color: teal;
 }
 
 .btn:hover {
@@ -96,24 +120,24 @@ ol li {
   justify-content: space-around;
   align-items: center;
 
-    img {
+  & img {
       vertical-align: bottom;
     }
 
-    .message__contents {
+  & .message__contents {
       padding: 16px;
       display: inline-block;
       box-shadow: 0 2px 5px #ccc;
       background-color: #fff;
       border-radius: 5px;
 
-        .message__image {
+        & .message__image {
           display: none;
         }
     }
 }
 
-/* .intoroduction */
+/* .introduction */
 
 .introduction section + section {
   margin-top: 48px;
@@ -129,22 +153,26 @@ ol li {
     border-radius: 5px;
 
 
-        h1 {
+      & h1 {
         padding: 32px 0;
         color: indigo;
         text-align: center;
         }
 
-        p {
+      & p {
         line-height: 2rem;
         }
 
   }
 
 
+
+
+
+
 @media screen and (max-width: 880px){
 
-  .image-contaienr{
+  .image-container{
     display: none;
   }
 

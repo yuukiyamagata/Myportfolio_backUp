@@ -1,72 +1,61 @@
 <template>
-    <v-container class="mt-12 mb-12 bg-main" fluid>
-    <v-row noGutters class="d-flex justify-space-between mb-10">
-      <!-- サイズが小さい時display: none -->
-        <v-col cols="12" sm="12" md="2">
-              <SideMenu class="mt-10 mb-10" />
-          </v-col>
-
-          <v-col cols="12" sm="8" md="9" class="mx-auto">
-                <v-container fluid>
-                  <v-row>
-                    <v-col
-                      v-for="sankousho in displayLists"
-                      :key="sankousho.recommendation_book_id"
-                      cols="8"
-                      sm="6"
-                      md="4"
-                      class="sp-display"
+  <div id="home" class="pa-4 bg-main">
+    <v-container fluid>
+      <h3 class="headline font-weight-medium mb-4">Recommended Post</h3>
+      <v-row>
+        <v-col
+          v-for="sankousho in displayLists"
+          :key="sankousho.recommendation_book_id"
+          cols="12"
+          sm="6"
+          md="4"
+          lg="3"
+          class="mx-xs-auto"
+          >
+            <v-card
+              class="card mx-auto"
+              width="380"
+              flat
+              tile
+              router
+              >
+                    <v-img
+                      height="200"
+                      width="150"
+                      :src="sankousho.recommendation_book_imageurl"
+                      class="cursor text-center mx-auto"
+                      @click="goToDetailPage(sankousho)"
                     >
-                      <v-card
-                        color="grey lighten-5"
-                        maxWidth="300px"
-                        >
-                        <v-container fluid>
-                          <v-row noGutters>
-                              <v-col cols="6" class="mx-auto">
-                                <v-responsive :aspectRatio="16/9">
-                                  <v-img
-                                    :src="sankousho.recommendation_book_imageurl"
-                                  >
-                                  </v-img>
-                                </v-responsive>
-                              </v-col>
-                            <v-col cols="12">
-                              <v-card-title>
-                                {{ sankousho.title }}
-                              </v-card-title>
-                              <v-card-subtitle>
-                                {{ sankousho.author }}
-                              </v-card-subtitle>
+                    </v-img>
 
-                              <v-divider class="mb-4"></v-divider>
-                            </v-col>
-                                <v-col cols="3">
-                                <v-avatar
-                                  color="primary"
-                                  size="50"
-                                >
-                                <v-img :src="sankousho.iconURL"></v-img>
-                                </v-avatar>
-                                <p class="user-name" @click="goToProfile">@{{ sankousho.post_user_name }}</p>
-                                </v-col>
+              <v-row no-gutters>
+                <v-col cols="2">
+                  <v-list-item class="pl-0 mr-4 pt-3" router :to="`/mypage/${sankousho.post_user_uid}`">
+                    <v-list-item-avatar color="grey darken-3">
+                      <v-img
+                        :alt="`${sankousho.iconURL} avatar`"
+                          :src="sankousho.iconURL"
+                          class="cursor elevation-6"
+                          @click="goToProfile"
+                      ></v-img>
+                    </v-list-item-avatar>
+                  </v-list-item>
+                </v-col>
+                <v-col>
+                  <v-card-title class="pl-2 pt-3 subtitle-1 font-weight-bold book-title">
+                    {{ sankousho.title }}
+                  </v-card-title>
 
-                                <v-col cols="9">
-                                  <v-card-text class="comment font-weight-medium">
-                                    {{ sankousho.reason }}
-                                    <nuxt-link :to="`/books/${sankousho.recommendation_book_id }`">続きを読む</nuxt-link>
-                                    </v-card-text>
-                                </v-col>
-
-                          </v-row>
-                        </v-container>
-
-                      </v-card>
-
-                    </v-col>
-                  </v-row>
-                </v-container>
-          </v-col>
+                  <v-card-subtitle class="pl-2 pb-8 comment">
+                    {{ sankousho.reason | omittedText15}}
+                    <nuxt-link :to="`/books/${sankousho.recommendation_book_id}`">
+                      続きを読む
+                    </nuxt-link>
+                  </v-card-subtitle>
+                </v-col>
+              </v-row>
+            </v-card>
+        </v-col>
       </v-row>
 
       <v-row class="mb-10">
@@ -79,18 +68,21 @@
           ></v-pagination>
         </v-col>
       </v-row>
-
-
     </v-container>
+  </div>
 </template>
+
+
 
 <script>
 import { getDocs, collection, query, orderBy } from 'firebase/firestore'
 import  { db } from '@/plugins/firebase'
 
 export default {
-  components: {
-    SideMenu: () => import("~/components/base/SideMenu"),
+  filters:{
+    omittedText15(text) {
+      return text.length > 15 ? text.slice(0, 15) + "…" : text;
+    }
   },
   data(){
     // sankoushoListsには全てのデータを持たせる
@@ -98,9 +90,9 @@ export default {
     return{
       page: 1,
       length:0,
-      sankoshoLists:[],
+      postRecommendations:[],
       displayLists: [],
-      pageSize: 9,
+      pageSize: 12,
       userData:[],
     }
   },
@@ -111,7 +103,7 @@ export default {
       // 作成日時順に並べるようにqueryを投げる
       const querySnapshot = await getDocs(postQuery);
       querySnapshot.forEach(doc => {
-        this.sankoshoLists.push({
+        this.postRecommendations.push({
           ...doc.data()
         })
       })
@@ -119,49 +111,42 @@ export default {
     }catch( e ){
       console.log( e )
     }
-    this.length = Math.ceil(this.sankoshoLists.length/this.pageSize);
-    this.displayLists = this.sankoshoLists.slice(this.pageSize*(this.page -1), this.pageSize*(this.page));;
+    this.length = Math.ceil(this.postRecommendations.length/this.pageSize);
+    this.displayLists = this.postRecommendations.slice(this.pageSize*(this.page -1), this.pageSize*(this.page));;
     this.setPostInfo()
   },
   methods:{
     pageChange( pageNumber ){
-    this.displayLists = this.sankoshoLists.slice(this.pageSize*( pageNumber  -1), this.pageSize*( pageNumber ));
+    this.displayLists = this.postRecommendations.slice(this.pageSize*( pageNumber  -1), this.pageSize*( pageNumber ));
   },
   setPostInfo(){
-    this.$store.commit('post/setPostInfo', this.sankoshoLists)
+    this.$store.commit('post/setPostInfo', this.postRecommendations)
   },
   setUserInfo(){
     this.$store.commit('userInfo/setUserInfo', this.userData)
   },
   goToProfile(){
     console.log('go')
+  },
+  goToDetailPage(sankousho){
+    this.$router.push(`/books/${sankousho.recommendation_book_id }`)
   }
   }
 
 }
 </script>
 
-<style scoped>
 
+<style lang="scss">
+.card {
+  background: white !important;
+}
+.book-title  {
+  overflow: hidden;
+}
 .comment {
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1.2;
 }
-
-.user-name {
-  display: inline-block;
-  padding-top: 3px;
-  font-weight: bold;
-  font-size: 4px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-@media screen and (max-width: 600px){
-  .sp-display {
-    margin: 0 auto;
-  }
-}
-
 </style>
+

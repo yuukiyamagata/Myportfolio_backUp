@@ -1,100 +1,104 @@
 <template>
-  <v-app-bar app class="white" clippedLeft elevation="1">
-    <header @click="$router.push('/')">
-        <img :src="img_src" class="logo">
-        <v-toolbar-title class="header-title">SANKOUSYO LABO</v-toolbar-title>
-    </header>
-    <v-spacer></v-spacer>
+  <div>
+    <v-navigation-drawer v-model="drawer" clipped app>
+        <v-container>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title class="title grey--text text--darken-2">
+                Navigation lists
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-divider></v-divider>
 
-  <!-- 非ログイン -->
-    <nuxt-link to="/auth/login" class="link-border-line-none">
-        <span v-if="!isLoggedIn">
-          <v-btn
-            outlined
-            color="indigo"
-            class="mr-4">
-              ログイン
-          </v-btn>
-        </span>
-    </nuxt-link>
-    <nuxt-link to="/auth/register" class="link-border-line-none">
-        <span v-if="!isLoggedIn">
-          <v-btn
-            outlined
-            color="red"
-            >
-              新規登録
-          </v-btn>
-        </span>
-    </nuxt-link>
-
-    <!-- ログイン時 -->
-    <div v-if="isLoggedIn">
-      <v-menu offsetY>
-        <template #activator="{on}">
-          <v-avatar color="orange" size="53" v-on="on">
-            <v-img :src="iconURL"></v-img>
-          </v-avatar>
-        </template>
-        <v-list>
-          <v-list-item-group>
+          <v-list  nav>
             <v-list-item
-                v-for="menu in menus"
-                :key="menu.name"
-                :to="menu.to"
-                @click="menuClick(menu.action)"
-                >
-              <v-list-item-icon class="mr-4">
-                <v-icon>{{ menu.icon }}</v-icon>
+            v-for="navList in navLists"
+            :key="navList.name"
+            :to="navList.to"
+            >
+              <v-list-item-icon>
+                <v-icon>{{ navList.icon }}</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>
-                  {{ menu.name }}
-                  </v-list-item-title>
+                <v-list-item-title>{{ navList.name }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-          </v-list-item-group>
         </v-list>
-      </v-menu>
-
-      <v-btn
-        elevation="0"
-        color="indigo"
-        class="ml-4 white--text"
-        @click="createPost"
-        >
-        <v-icon small class="mr-2">mdi-pencil</v-icon>
-        投稿
-      </v-btn>
-
-    </div>
 
 
-  </v-app-bar>
+      </v-container>
+    </v-navigation-drawer>
+    <v-app-bar app class="white m-0" clipped-left elevation="1">
+      <v-app-bar-nav-icon  @click="drawer=!drawer">
+      </v-app-bar-nav-icon>
+
+      <header class="p-0" @click="$router.push('/')">
+        <v-img :src="img_src" class="logo" />
+        <div class="header-title">SANKOUSYO LABO</div>
+      </header>
+      <v-spacer></v-spacer>
+
+    <!-- 非ログイン -->
+      <nuxt-link to="/auth/login" class="link-border-line-none">
+          <span v-if="!isLoggedIn">
+            <v-btn
+              outlined
+              color="indigo"
+              class="mr-4">
+                ログイン
+            </v-btn>
+          </span>
+      </nuxt-link>
+      <nuxt-link to="/auth/register" class="link-border-line-none">
+          <span v-if="!isLoggedIn">
+            <v-btn
+              outlined
+              color="teal"
+              >
+                新規登録
+            </v-btn>
+          </span>
+      </nuxt-link>
+
+      <!-- ログイン時 -->
+      <div v-if="isLoggedIn">
+
+        <v-avatar size="53" v-on="on">
+          <v-img :src="iconURL"></v-img>
+        </v-avatar>
+
+        <v-btn
+          elevation="0"
+          color="indigo"
+          class="ml-4 white--text"
+          @click="createPost"
+          >
+          <v-icon small class="mr-2">mdi-pencil</v-icon>
+          投稿
+        </v-btn>
+
+      </div>
+
+
+    </v-app-bar>
+</div>
 </template>
 
 <script>
-import {auth } from "@/plugins/firebase"
+import { auth } from "@/plugins/firebase"
 export default {
   data() {
     return {
+      drawer: null,
       img_src: require('@/static/logo.png'),
-      menus:[
-        {
-          name: 'HOME',
-          icon: 'mdi-home',
-          to: '/',
-        },
-        {
-          name: 'マイページ',
-          icon: 'mdi-account',
-          action: 'goToMyPage'
-        },
-        {
-          name:'ログアウト',
-          icon: 'mdi-logout',
-          action: 'logout'
-        },
+      navLists:[
+        {name: 'About Page',icon: 'mdi-book-open-blank-variant', to: '/introduction'},
+        {name: 'ホーム',icon: 'mdi-home', to: '/'},
+        {name: '条件検索',icon: 'mdi-magnify', action: 'search'},
+        {name: 'マイページ',icon: 'mdi-account', action: 'goToMyPage'},
+        {name: 'ログアウト',icon: 'mdi-logout', action: 'logout'},
+        {name: '設定',icon: 'mdi-cogs'},
       ]
     }
   },
@@ -144,19 +148,21 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 
 header {
   display: flex;
   flex-direction: row;
   justify-content: center;
   cursor: pointer;
-}
 
-.header-title {
+  & .header-title {
   font-size: 16px;
   margin-left: 6px;
   padding-top: 4%;
 }
+}
+
+
 
 </style>
