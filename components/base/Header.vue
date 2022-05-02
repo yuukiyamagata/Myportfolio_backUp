@@ -1,76 +1,93 @@
 <template>
-  <v-app-bar app class="white" clippedLeft elevation="1">
-    <header @click="$router.push('/')">
-        <img :src="img_src" class="logo">
-        <v-toolbar-title class="header-title">SANKOUSYO LABO</v-toolbar-title>
-    </header>
-    <v-spacer></v-spacer>
+  <div>
+    <v-navigation-drawer v-model="drawer" clipped app>
+        <v-container>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title class="title grey--text text--darken-2">
+                Navigation lists
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-divider></v-divider>
+      </v-container>
+    </v-navigation-drawer>
+    <v-app-bar app class="white m-0" clipped-left elevation="1">
+      <v-app-bar-nav-icon  @click="drawer=!drawer">
+      </v-app-bar-nav-icon>
 
-  <!-- 非ログイン -->
-    <nuxt-link to="/auth/login" class="link-border-line-none">
-        <span v-if="!isLoggedIn">
-          <v-btn
-            outlined
-            color="indigo"
-            class="mr-4">
-              ログイン
-          </v-btn>
-        </span>
-    </nuxt-link>
-    <nuxt-link to="/auth/register" class="link-border-line-none">
-        <span v-if="!isLoggedIn">
-          <v-btn
-            outlined
-            color="red"
-            >
-              新規登録
-          </v-btn>
-        </span>
-    </nuxt-link>
+      <header class="p-0" @click="$router.push('/')">
+        <v-img :src="img_src" class="logo" />
+        <div class="header-title">SANKOUSYO LABO</div>
+      </header>
+      <v-spacer></v-spacer>
 
-    <!-- ログイン時 -->
-    <div v-if="isLoggedIn">
-      <v-menu offsetY>
-        <template #activator="{on}">
-          <v-avatar color="orange" size="53" v-on="on">
-            <v-img :src="iconURL"></v-img>
-          </v-avatar>
-        </template>
-        <v-list>
-          <v-list-item-group>
-            <v-list-item
-                v-for="menu in menus"
-                :key="menu.name"
-                :to="menu.to"
-                @click="menuClick(menu.action)"
-                >
-              <v-list-item-icon class="mr-4">
-                <v-icon>{{ menu.icon }}</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>
-                  {{ menu.name }}
-                  </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-item-group>
-        </v-list>
-      </v-menu>
+    <!-- 非ログイン -->
+      <nuxt-link to="/auth/login" class="link-border-line-none">
+          <span v-if="!isLoggedIn">
+            <v-btn
+              outlined
+              color="indigo"
+              class="mr-4">
+                ログイン
+            </v-btn>
+          </span>
+      </nuxt-link>
+      <nuxt-link to="/auth/register" class="link-border-line-none">
+          <span v-if="!isLoggedIn">
+            <v-btn
+              outlined
+              color="teal"
+              >
+                新規登録
+            </v-btn>
+          </span>
+      </nuxt-link>
 
-      <v-btn
-        elevation="0"
-        color="indigo"
-        class="ml-4 white--text"
-        @click="createPost"
-        >
-        <v-icon small class="mr-2">mdi-pencil</v-icon>
-        投稿
-      </v-btn>
+      <!-- ログイン時 -->
+      <div v-if="isLoggedIn">
+        <v-menu offsetY>
+          <template #activator="{on}">
+            <v-avatar color="orange" size="53" v-on="on">
+              <v-img :src="iconURL"></v-img>
+            </v-avatar>
+          </template>
+          <v-list>
+            <v-list-item-group>
+              <v-list-item
+                  v-for="menu in menus"
+                  :key="menu.name"
+                  :to="menu.to"
+                  @click="menuClick(menu.action)"
+                  >
+                <v-list-item-icon class="mr-4">
+                  <v-icon>{{ menu.icon }}</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    {{ menu.name }}
+                    </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
+        </v-menu>
 
-    </div>
+        <v-btn
+          elevation="0"
+          color="indigo"
+          class="ml-4 white--text"
+          @click="createPost"
+          >
+          <v-icon small class="mr-2">mdi-pencil</v-icon>
+          投稿
+        </v-btn>
+
+      </div>
 
 
-  </v-app-bar>
+    </v-app-bar>
+</div>
 </template>
 
 <script>
@@ -78,6 +95,7 @@ import {auth } from "@/plugins/firebase"
 export default {
   data() {
     return {
+      drawer: null,
       img_src: require('@/static/logo.png'),
       menus:[
         {

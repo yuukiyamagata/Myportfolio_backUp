@@ -10,7 +10,7 @@
           </div>
         </div>
       </div>
-      <div class="image-contaienr">
+      <div class="image-container">
         <img
         width="300"
         height="300"
@@ -75,13 +75,13 @@ ol li {
 .btn {
   width: 200px;
   height: 50px;
-  border: 1px solid red;
+  border: 1px solid teal;
   text-align: center;
   margin: 24px auto;
   padding: 8px 0;
   border-radius: 7px;
   cursor: pointer;
-  color: red;
+  color: teal;
 }
 
 .btn:hover {
@@ -113,7 +113,7 @@ ol li {
     }
 }
 
-/* .intoroduction */
+/* .introduction */
 
 .introduction section + section {
   margin-top: 48px;
@@ -144,7 +144,7 @@ ol li {
 
 @media screen and (max-width: 880px){
 
-  .image-contaienr{
+  .image-container{
     display: none;
   }
 

@@ -316,5 +316,21 @@ getters {
       }
     }
   }
-  // メールアでレスでログイン
- 
+  // メールアでレスでログインc
+
+
+
+.comment {
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.user-name {
+  display: inline-block;
+  padding-top: 3px;
+  font-weight: bold;
+  font-size: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

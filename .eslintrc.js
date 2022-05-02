@@ -17,7 +17,7 @@ module.exports = {
     }],
     // "no-restricted-syntax": ["error", "SequenceExpression"],
     "vue/attribute-hyphenation": ["error", "never" , {
-      "ignore":["max-width"]
+      "ignore":["max-width", "clipped-left", "no-gutters", "three-line"]
     }],
     "no-console": "off",
         "no-restricted-syntax": [

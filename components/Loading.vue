@@ -19,12 +19,6 @@ export default {
       required: true
     }
   },
-  created(){
-  },
-  data(){
-    return {
-    }
-  }
 }
 </script>
 

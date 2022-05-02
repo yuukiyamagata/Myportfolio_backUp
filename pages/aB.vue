@@ -1,7 +1,7 @@
 <template>
   <div id="home" class="pa-4 bg-main">
     <v-container fluid>
-      <h3 class="headline font-weight-medium mb-4">Recommended Post</h3>
+      <h3 class="headline font-weight-medium mb-4">Recommended</h3>
       <v-row>
         <v-col
           v-for="sankousho in displayLists"
@@ -11,14 +11,14 @@
           md="4"
           lg="3"
           class="mx-xs-auto"
-          >
+        >
             <v-card
               class="card mx-auto"
-              width="380"
+              max-width="350"
               flat
               tile
               router
-              >
+            >
                     <v-img
                       height="200"
                       width="150"
@@ -30,7 +30,7 @@
 
               <v-row no-gutters>
                 <v-col cols="2">
-                  <v-list-item class="pl-0 mr-4 pt-3" router :to="`/mypage/${sankousho.post_user_uid}`">
+                  <v-list-item class="pl-0 pt-3" router to="/channels/12">
                     <v-list-item-avatar color="grey darken-3">
                       <v-img
                         :alt="`${sankousho.iconURL} avatar`"
@@ -42,19 +42,20 @@
                   </v-list-item>
                 </v-col>
                 <v-col>
-                  <v-card-title class="pl-2 pt-3 subtitle-1 font-weight-bold book-title">
+                  <v-card-title class="pl-2 pt-3 subtitle-1 font-weight-bold">
                     {{ sankousho.title }}
                   </v-card-title>
 
-                  <v-card-subtitle class="pl-2 pb-8 comment">
-                    {{ sankousho.reason | omittedText15}}
-                    <nuxt-link :to="`/books/${sankousho.recommendation_book_id}`">
-                      続きを読む
-                    </nuxt-link>
+                  <v-card-subtitle class="pl-2 pb-0">
+                    1,000 miles of wonder
+                  </v-card-subtitle>
+                  <v-card-subtitle class="pl-2 pt-0">
+                    9.6k views<v-icon>mdi-circle-small</v-icon>6 hours ago
                   </v-card-subtitle>
                 </v-col>
               </v-row>
             </v-card>
+          <!-- </v-skeleton-loader> -->
         </v-col>
       </v-row>
 
@@ -92,7 +93,7 @@ export default {
       length:0,
       postRecommendations:[],
       displayLists: [],
-      pageSize: 12,
+      pageSize: 9,
       userData:[],
     }
   },
@@ -140,13 +141,6 @@ export default {
 <style lang="scss">
 .card {
   background: white !important;
-}
-.book-title  {
-  overflow: hidden;
-}
-.comment {
-  font-size: 16px;
-  line-height: 1.2;
 }
 </style>
 
