@@ -1,5 +1,5 @@
 <template>
-  <div id="home" class="pa-4 bg-main">
+  <div id="home" :class="['pa-4', {'bg-main': displayLists.length}]">
     <v-container fluid>
       <h3 class="headline font-weight-medium mb-4">Recommended Post</h3>
       <v-row>
@@ -22,7 +22,7 @@
                     <v-img
                       height="200"
                       width="150"
-                      :src="sankousho.recommendation_book_imageurl"
+                      :src="sankousho.recommendation_book_imageURL"
                       class="cursor text-center mx-auto"
                       @click="goToDetailPage(sankousho)"
                     >
@@ -43,11 +43,11 @@
                 </v-col>
                 <v-col>
                   <v-card-title class="pl-2 pt-3 subtitle-1 font-weight-bold book-title">
-                    {{ sankousho.title }}
+                    {{ sankousho.recommendation_book_title }}
                   </v-card-title>
 
                   <v-card-subtitle class="pl-2 pb-8 comment">
-                    {{ sankousho.reason | omittedText15}}
+                    {{ sankousho.recommendation_book_reason | omittedText15}}
                     <nuxt-link :to="`/books/${sankousho.recommendation_book_id}`">
                       続きを読む
                     </nuxt-link>
@@ -58,8 +58,10 @@
         </v-col>
       </v-row>
 
-      <v-row class="mb-10">
-        <v-col class="text-center">
+
+
+      <v-row v-if="displayLists.length > 12" class="mb-10" >
+        <v-col  class="text-center">
           <v-pagination
             v-model="page"
             :length="length"

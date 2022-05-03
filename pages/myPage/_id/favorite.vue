@@ -20,7 +20,7 @@
                     <v-col cols="6" class="mx-auto">
                       <v-responsive :aspectRatio="16/9">
                         <v-img
-                          :src="book.recommendation_book_imageurl"
+                          :src="book.recommendation_book_imageURL"
                         >
                         </v-img>
                       </v-responsive>
@@ -34,7 +34,10 @@
                   </v-col>
 
                   <v-col cols="9">
-                      <nuxt-link :to="`/books/${sankousho.recommendation_book_id }`">詳細をみる</nuxt-link>
+                      <nuxt-link
+                      :to="`/books/${sankousho.recommendation_book_id }`">
+                      詳細をみる
+                    </nuxt-link>
                   </v-col>
 
                 </v-row>

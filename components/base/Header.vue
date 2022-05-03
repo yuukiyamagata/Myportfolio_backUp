@@ -64,7 +64,7 @@
       <!-- ログイン時 -->
       <div v-if="isLoggedIn">
 
-        <v-avatar size="53" v-on="on">
+        <v-avatar size="53">
           <v-img :src="iconURL"></v-img>
         </v-avatar>
 

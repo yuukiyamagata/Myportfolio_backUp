@@ -18,7 +18,7 @@ export const state = () => ({
     userName: '',
     introduction : '',
     iconURL: "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg",
-    twitterUR: ''
+    twitterURL: ''
   }
 })
 
@@ -36,8 +36,7 @@ export const mutations = {
     // state.user.emailVerified = userInfo.emailVerified
   },
   fetchUserInfo(state, userData){
-    console.log(userData)
-    state.loginUserInfo.userName = userData.username
+    state.loginUserInfo.userName = userData.userName
     state.loginUserInfo.iconURL = userData.iconURL
   },
   logoutReset( state ){
