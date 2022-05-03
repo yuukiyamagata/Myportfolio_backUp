@@ -41,9 +41,10 @@
             ></v-text-field>
             <v-textarea
               v-model="sankousho.reason"
+              dense
               label="参考書おすすめ理由"
               placeholder="(例) これを7周やったら偏差値15上がった!!"
-              height="100"
+              height="200"
               :rules="reasonRules"
             ></v-textarea>
             <v-select
@@ -249,19 +250,19 @@ export default {
       this.serachResults = []
     },
     async postBook(){
-      const message = 'この内容で登録してもよろしいでしょうか?'
+      const message = 'この内容で投稿してもよろしいでしょうか?'
       const result = window.confirm(message);
       if(!result) return // eslint-disable-line
         try {
           const postRef = doc(collection(db, "post_recommendations"))
           const bookData = {
-            title: this.sankousho.title,
-            category: this.sankousho.category,
-            recommendation_book_imageurl: this.sankousho.imageUrl,
+            recommendation_book_title: this.sankousho.title,
+            recommendation_book_category: this.sankousho.category,
+            recommendation_book_imageURL: this.sankousho.imageUrl,
             recommendation_book_id: postRef.id,
-            recommendation_book_url:this.sankousho.itemUrl,
-            reason: this.sankousho.reason,
-            book_author: this.sankousho.author,
+            recommendation_book_itemURL:this.sankousho.itemUrl,
+            recommendation_book_reason: this.sankousho.reason,
+            recommendation_book_author: this.sankousho.author,
             created_at: serverTimestamp(),
             post_user_name: 'Yuuki',
             post_user_uid: '5dOB0RSHBVO5r0rwEDvbeJE4xm53',

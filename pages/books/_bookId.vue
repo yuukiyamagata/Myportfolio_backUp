@@ -10,7 +10,7 @@
                   :aspectRation=16/9
                   >
                     <v-img
-                      :src="bookDetailInfo.recommendation_book_imageurl"
+                      :src="bookDetailInfo.recommendation_book_imageURL"
                       flat
                       contain
                     >
@@ -18,8 +18,8 @@
                   </v-responsive>
                 </v-col>
                 <v-col cols="12">
-                  <p class="text-center text-sm-h6 text-body-1 font-weight-bold">{{ bookDetailInfo.title }}</p>
-                  <p class="text-center text-body-2">{{ bookDetailInfo.author }}</p>
+                  <p class="text-center text-sm-h6 text-body-1 font-weight-bold">{{ bookDetailInfo.recommendation_book_title }}</p>
+                  <p class="text-center text-body-2">{{ bookDetailInfo.recommendation_book_author }}</p>
                 </v-col>
                 <v-divider class="mb-4"></v-divider>
                 <v-col class="text-center">
@@ -38,9 +38,12 @@
                   <v-list>
                       <v-list-item>
                         <v-list-item-title >
-                          <nuxt-link to="/" class="link-border-line-none">
+                          <a
+                          target="_blank"
+                          :href="bookDetailInfo.recommendation_book_itemURL"
+                          class="link-border-line-none">
                           楽天サイトで見てみる
-                          </nuxt-link>
+                          </a>
                         </v-list-item-title>
                       </v-list-item>
                     </v-list>
@@ -73,7 +76,7 @@
                       </v-list-item>
 
                     <v-card-text>
-                      {{ bookDetailInfo.reason }}
+                      {{ bookDetailInfo.recommendation_book_reason }}
                     </v-card-text>
                     <v-card-actions>
                       <v-btn
@@ -132,21 +135,22 @@ export default {
   },
   created(){
     this.bookId = this.$route.params.bookId
+    console.log(this.loginUserInfo)
   },
   methods:{
     async confirm(){
       const result = window.confirm('お気に入りに登録しますか?')
       if(!result) return // eslint-disable-line
-      const postInfo ={
-        bookId:  this.bookDetailInfo.recommendation_book_id,
-        bookTitle: this.bookDetailInfo.title,
-        bookImageUrl: this.bookDetailInfo.recommendation_book_imageurl
+      const favoritePost ={
+        post_id:  this.bookDetailInfo.recommendation_book_id,
+        posted_book_title: this.bookDetailInfo. recommendation_book_title,
+        posted_book_imageURL: this.bookDetailInfo.recommendation_book_imageURL
       }
     // すでにお気に入りした記事かどうか調べる必要がある
     const user = auth.currentUser
     const favoritePostRef =  collection(db, 'users', user.uid, 'favorite_posts')
     try {
-      await addDoc(favoritePostRef, postInfo)
+      await addDoc(favoritePostRef, favoritePost)
       alert('お気に入りに登録しました')
     }catch( e ){
       console.log( e )

@@ -1,6 +1,5 @@
 export const state = () => ({
   recommendationPosts: null,
-  myFavoritePost: [],
 })
 
 export const getters = {
