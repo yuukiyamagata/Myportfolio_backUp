@@ -63,10 +63,8 @@ export const actions = {
         try {
             const result = await signInWithPopup(auth, provider)
             const isNewUser = getAdditionalUserInfo(result).isNewUser;
-            dispatch('userInfo/setUserInfo', result.user, { root: true})
             dispatch('userInfo/createUser', isNewUser, { root: true })
             alert('Googleのサインインに成功しました')
-            commit('setLoginState', true)
             this.$router.push('/')
         }catch(error){
             const credential = GoogleAuthProvider.credentialFromError(error);
@@ -97,10 +95,10 @@ export const actions = {
       async logout({ commit }) {
         await signOut(auth).then(() => {
           commit('setLoginState', false)
-          commit('userInfo/logoutReset', null, { root: true })
-          commit('post/logoutReset', null, { root: true })
-          commit('getPosts/logoutReset', null, { root: true })
-          commit('myPageInfo.js/logoutReset', null, { root: true })
+          // commit('userInfo/logoutReset', null, { root: true })
+          // commit('post/logoutReset', null, { root: true })
+          // commit('getPosts/logoutReset', null, { root: true })
+          // commit('myPageInfo.js/logoutReset', null, { root: true })
         })
         .catch(e => {
           console.log(e) // eslint-disable-line

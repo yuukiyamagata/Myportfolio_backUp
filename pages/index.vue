@@ -124,9 +124,8 @@ export default {
   setPostInfo(){
     this.$store.commit('post/setPostInfo', this.postRecommendations)
   },
-  setUserInfo(){
-    this.$store.commit('userInfo/setUserInfo', this.userData)
-  },
+  //   this.$store.commit('userInfo/setUserInfo', this.userData)
+  // },
   goToProfile(){
     console.log('go')
   },

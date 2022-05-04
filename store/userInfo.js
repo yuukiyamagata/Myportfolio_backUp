@@ -33,7 +33,7 @@ export const mutations = {
     state.user.userUid = userInfo.uid, // eslint-disable-line
     state.user.userName = userInfo.displayName,
     state.user.iconURL = userInfo.photoURL
-    // state.user.emailVerified = userInfo.emailVerified
+    state.user.emailVerified = userInfo.emailVerified
   },
   fetchUserInfo(state, userData){
     state.loginUserInfo.userName = userData.userName
@@ -58,7 +58,6 @@ export const actions = {
   setUserInfo({ commit }, userInfo) {
     commit('setUserInfo', userInfo)
   },
-  // stateのUserをfirestoreのUsersコレクションに格納する。
   // user.userUidはAuthIdとする
   async createUser({ getters, dispatch }, isNewUser) {
     const userUid = getters.user.userUid
@@ -89,6 +88,7 @@ export const actions = {
       try {
         const docRef = doc(db, 'users', userUid)
         const docSnap = await getDoc(docRef)
+        console.log(docSnap.data())
         commit('fetchUserInfo', docSnap.data())
       } catch(error) {
           console.log(error)
