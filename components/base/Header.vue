@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer v-model="drawer" clipped app>
+    <v-navigation-drawer v-if="isLoggedIn" v-model="drawer" clipped app>
         <v-container>
           <v-list-item>
             <v-list-item-content>
@@ -26,11 +26,11 @@
             </v-list-item>
         </v-list>
 
-
       </v-container>
     </v-navigation-drawer>
+
     <v-app-bar app class="white m-0" clipped-left elevation="1">
-      <v-app-bar-nav-icon  @click="drawer=!drawer">
+      <v-app-bar-nav-icon v-if="isLoggedIn"  @click="drawer=!drawer">
       </v-app-bar-nav-icon>
 
       <header class="p-0" @click="$router.push('/')">

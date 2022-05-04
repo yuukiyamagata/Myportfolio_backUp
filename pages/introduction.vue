@@ -55,7 +55,7 @@
       </div>
       </section>
 
-        <nuxt-link to="/auth/register" class="link-border-line-none">
+        <nuxt-link v-if="!isLoggedIn" to="/auth/register" class="link-border-line-none">
           <div class="btn">
             新規登録はこちらから
           </div>
@@ -65,12 +65,25 @@
   </div>
 </template>
 
+<script>
+export default {
+  data(){
+    return {
+      isLoggedIn: false
+    }
+  },
+  created(){
+    this.isLoggedIn = this.$store.getters['auth/isLoggedIn']
+  }
+}
+</script>
+
 
 <style lang="scss">
 
 .introduction-contents {
   max-width: 1000px !important;
-  margin: 0 auto;
+  margin: 0 auto 32px;
 }
 
   ul {
