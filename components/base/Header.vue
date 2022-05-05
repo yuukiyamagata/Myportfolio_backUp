@@ -16,6 +16,7 @@
             v-for="navList in navLists"
             :key="navList.name"
             :to="navList.to"
+            @click="navClick(navList.action)"
             >
               <v-list-item-icon>
                 <v-icon>{{ navList.icon }}</v-icon>
@@ -39,7 +40,9 @@
       </header>
       <v-spacer></v-spacer>
 
-    <!-- 非ログイン -->
+
+
+    <!-- 未ログイン -->
       <nuxt-link to="/auth/login" class="link-border-line-none">
           <span v-if="!isLoggedIn">
             <v-btn
@@ -61,7 +64,7 @@
           </span>
       </nuxt-link>
 
-      <!-- ログイン時 -->
+      <!-- ログイン済 -->
       <div v-if="isLoggedIn">
 
         <v-avatar size="53">
@@ -81,7 +84,9 @@
       </div>
 
 
-    </v-app-bar>
+  </v-app-bar>
+
+
 </div>
 </template>
 
@@ -93,13 +98,13 @@ export default {
       drawer: null,
       img_src: require('@/static/logo.png'),
       navLists:[
-        {name: 'About Page',icon: 'mdi-book-open-blank-variant', to: '/introduction'},
-        {name: 'ホーム',icon: 'mdi-home', to: '/'},
-        {name: '条件検索',icon: 'mdi-magnify', action: 'search'},
+        {name: 'About Page', icon: 'mdi-book-open-blank-variant', to: '/introduction'},
+        {name: 'ホーム', icon: 'mdi-home', to: '/'},
+        {name: '投稿', icon: 'mdi-pencil', to: '/posts/create'},
         {name: 'マイページ',icon: 'mdi-account', action: 'goToMyPage'},
         {name: 'ログアウト',icon: 'mdi-logout', action: 'logout'},
-        {name: '設定',icon: 'mdi-cogs'},
-      ]
+        {name: '設定', icon: 'mdi-cogs', action: 'settings'},
+      ],
     }
   },
   computed:{
@@ -118,7 +123,11 @@ export default {
     }
   },
   methods:{
-    menuClick(action){
+    navClick(action){
+
+      if(action === 'settings'){
+        this.$router.push('/settings')
+      }
 
       if(action === 'logout'){
         const message = 'ログアウトしますか？'
@@ -129,13 +138,10 @@ export default {
 
         if(action === 'goToMyPage'){
           const uid = auth.currentUser.uid
-          // const user = auth.currentUser
-          // if(user.emailVerified == true){
-          // }
-          this.$router.push(`/mypage/${uid}`)
-        }else {
-          // eslint-disable-next-line no-useless-return
-          return
+          const user = auth.currentUser
+          if(user.emailVerified === true){
+            this.$router.push(`/mypage/${uid}`)
+          }
         }
 
     },

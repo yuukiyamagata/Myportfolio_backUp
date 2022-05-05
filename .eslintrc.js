@@ -13,11 +13,11 @@ module.exports = {
   // add your custom rules here
   rules: {
     "vue/multi-word-component-names": ["error", {
-      "ignores": ['index', 'login',  'create', 'edit', 'preview',  'register', 'logout', 'Header', 'Footer', 'loading', '_bookId', 'like', 'myPage', 'favorite', 'introduction', 'Loading', 'empty']
+      "ignores": ['index', 'login',  'create', 'edit', 'preview',  'register', 'logout', 'Header', 'Footer', 'loading', '_bookId', 'like', 'myPage', 'favorite', 'introduction', 'Loading', 'empty', 'settings']
     }],
     // "no-restricted-syntax": ["error", "SequenceExpression"],
     "vue/attribute-hyphenation": ["error", "never" , {
-      "ignore":["max-width", "clipped-left", "no-gutters", "three-line", "vue-loading"]
+      "ignore":["max-width", "clipped-left", "no-gutters", "three-line", "vue-loading","center-active", "background-color"]
     }],
     "no-console": "off",
         "no-restricted-syntax": [

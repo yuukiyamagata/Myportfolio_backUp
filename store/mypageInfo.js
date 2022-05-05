@@ -18,7 +18,7 @@ export const getters = {
 
 export const mutations = {
   setUserInfo(state, profileInfo) {
-    state.profileInfo.username = profileInfo.userName;
+    state.profileInfo.userName = profileInfo.userName;
     state.profileInfo.introduction = profileInfo.introduction;
     state.profileInfo.iconURL = profileInfo.iconURL;
   },

@@ -1,10 +1,26 @@
 <template>
-  <div id="home" :class="['pa-4', {'bg-main': displayLists.length}]">
+  <div id="home" class="bg-main p-8">
+    <v-card
+      tile
+    >
+      <v-tabs
+        center-active
+        right
+        background-color="transparent"
+        >
+        <v-tab
+        v-for="subject in subjects"
+        :key="subject"
+        @click="filterSubject(subject)"
+        >{{ subject }}</v-tab>
+      </v-tabs>
+    </v-card>
+
     <v-container fluid>
-      <h3 class="headline font-weight-medium mb-4">Recommended Post</h3>
-      <v-row>
+      <h3 class="headline font-weight-medium my-8">Recommended Post</h3>
+      <v-row v-if="!noBook">
         <v-col
-          v-for="sankousho in displayLists"
+          v-for="sankousho in postRecommendations"
           :key="sankousho.recommendation_book_id"
           cols="12"
           sm="6"
@@ -15,9 +31,9 @@
             <v-card
               class="card mx-auto"
               width="380"
+              router
               flat
               tile
-              router
               >
                     <v-img
                       height="200"
@@ -42,25 +58,30 @@
                   </v-list-item>
                 </v-col>
                 <v-col>
-                  <v-card-title class="pl-2 pt-3 subtitle-1 font-weight-bold book-title">
+                  <v-card-title class="pl-2 pt-3 subtitle-2 font-weight-bold book-title">
                     {{ sankousho.recommendation_book_title }}
                   </v-card-title>
 
-                  <v-card-subtitle class="pl-2 pb-8 comment">
+                  <v-card-subtitle class="pl-2 pb-8 body-2">
                     {{ sankousho.recommendation_book_reason | omittedText15}}
                     <nuxt-link :to="`/books/${sankousho.recommendation_book_id}`">
                       続きを読む
                     </nuxt-link>
                   </v-card-subtitle>
+
                 </v-col>
               </v-row>
             </v-card>
         </v-col>
       </v-row>
 
+      <v-row v-if="noBook">
+        Sorry....。Not Register this category
+      </v-row>
 
 
-      <v-row v-if="displayLists.length > 12" class="mb-10" >
+
+      <!-- <v-row v-if="displayLists.length < 12" class="mb-10" >
         <v-col  class="text-center">
           <v-pagination
             v-model="page"
@@ -69,7 +90,7 @@
             @input ="pageChange"
           ></v-pagination>
         </v-col>
-      </v-row>
+      </v-row> -->
     </v-container>
   </div>
 </template>
@@ -77,61 +98,70 @@
 
 
 <script>
-import { getDocs, collection, query, orderBy } from 'firebase/firestore'
-import  { db } from '@/plugins/firebase'
 
 export default {
   filters:{
     omittedText15(text) {
       return text.length > 15 ? text.slice(0, 15) + "…" : text;
-    }
+    },
   },
   data(){
-    // sankoushoListsには全てのデータを持たせる
     // displayListにはブラウザに表示させるデータのみ持たせる
     return{
       page: 1,
-      length:0,
-      postRecommendations:[],
-      displayLists: [],
+      // length:0,
+      // displayLists: [],
       pageSize: 12,
-      userData:[],
+      categorySearch: false,
+    }
+  },
+  computed:{
+    postRecommendations(){
+      if(!this.categorySearch){
+        return this.$store.getters["post/recommendationPosts"]
+      }else{
+        return this.$store.getters["post/filteredRecommendationPosts"]
+      }
+    },
+    // length(){
+    //   return Math.ceil(this.postRecommendations.length/this.pageSize)
+    // },
+    // displayLists(){
+    //   return this.postRecommendations.slice(this.pageSize*(this.page -1), this.pageSize*(this.page));
+    // },
+    subjects(){
+      return this.$store.getters["post/subjects"]
+    },
+    noBook(){
+      return this.$store.getters["post/noBook"]
     }
   },
   async created(){
-    const postRef = collection(db, "post_recommendations")
-    const postQuery = query(postRef, orderBy("created_at", "desc"));
-    try {
-      // 作成日時順に並べるようにqueryを投げる
-      const querySnapshot = await getDocs(postQuery);
-      querySnapshot.forEach(doc => {
-        this.postRecommendations.push({
-          ...doc.data()
-        })
-      })
-
+    this.$store.dispatch("post/initialize")
+    try{
+      await this.$store.dispatch("post/getPost")
     }catch( e ){
-      console.log( e )
+      console.error( e )
     }
-    this.length = Math.ceil(this.postRecommendations.length/this.pageSize);
-    this.displayLists = this.postRecommendations.slice(this.pageSize*(this.page -1), this.pageSize*(this.page));;
-    this.setPostInfo()
   },
   methods:{
     pageChange( pageNumber ){
     this.displayLists = this.postRecommendations.slice(this.pageSize*( pageNumber  -1), this.pageSize*( pageNumber ));
   },
-  setPostInfo(){
-    this.$store.commit('post/setPostInfo', this.postRecommendations)
-  },
-  //   this.$store.commit('userInfo/setUserInfo', this.userData)
-  // },
   goToProfile(){
     console.log('go')
   },
   goToDetailPage(sankousho){
     this.$router.push(`/books/${sankousho.recommendation_book_id }`)
-  }
+  },
+  filterSubject(subject){
+    if(subject === "全て"){
+      this.categorySearch = false
+      return
+    }
+    this.categorySearch = true
+    this.$store.dispatch("post/filterSubject", subject)
+    }
   }
 
 }
@@ -144,10 +174,6 @@ export default {
 }
 .book-title  {
   overflow: hidden;
-}
-.comment {
-  font-size: 16px;
-  line-height: 1.2;
 }
 </style>
 

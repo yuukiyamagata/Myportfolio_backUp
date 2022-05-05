@@ -49,7 +49,7 @@
             ></v-textarea>
             <v-select
               v-model="sankousho.category"
-              :items="subject"
+              :items="subjects"
               label="カテゴリー"
               dense
               :rules="sankousyoCategoryRules"
@@ -85,7 +85,7 @@
         <v-divider></v-divider>
         <v-card-text>
 
-          <v-container>
+        <v-container>
           <v-row justify="center" align="center">
             <v-col
               v-for="result in serachResults"
@@ -122,16 +122,18 @@
             </v-row>
           </v-container>
         </v-card-text>
-            <v-card-actions>
-              <v-btn
-                color="blue darken-1"
-                text
-                @click="closeDialoag"
-                >
-                Close
-              </v-btn>
-          </v-card-actions>
-        </v-card>
+
+        <v-card-actions>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="closeDialog"
+            >
+            Close
+          </v-btn>
+      </v-card-actions>
+
+      </v-card>
     </v-dialog>
   </v-row>
 </template>
@@ -169,18 +171,18 @@ export default {
       ],
       sankousyoCategoryRules: [(v) => !!v || "必須項目です。"],
       authorOrPublisherNameRules: [(v) =>(v && v.length <= 20) || "必須項目です。また最大20文字です。"],
-      subject:[
+      subjects:[
         '数学',
         '英語',
         '現代文,古文,漢文',
-        '理科・化学',
-        '理科・物理',
-        '理科・生物',
-        '理科・地学',
-        '社会・日本史',
-        '社会・世界史',
-        '社会・地理',
-        '社会・政治経済,倫理',
+        '化学',
+        '物理',
+        '生物',
+        '地学',
+        '日本史',
+        '世界史',
+        '地理',
+        '政治経済,倫理',
       ],
         dialog: false,
     }
@@ -245,7 +247,7 @@ export default {
       this.dialog = false
       this.serachResults = [];
     },
-    closeDialoag(){
+    closeDialog(){
       this.dialog = false
       this.serachResults = []
     },
@@ -313,6 +315,4 @@ export default {
   border: 1px solid black;
 }
 </style>
-
-
 
